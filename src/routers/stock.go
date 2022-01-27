@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	controllers "shyrio.com/position-service/controllers"
+	controllers "shyrio.com/mochi/controllers"
 )
 
 func AddStockRoutes(router *gin.Engine) {

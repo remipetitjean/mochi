@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	"shyrio.com/position-service/core"
+	"shyrio.com/mochi/core"
 )
 
 func GetPreviousDayStockPrices() []core.StockPrice {

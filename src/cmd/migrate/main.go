@@ -1,7 +1,7 @@
 package main
 
 import (
-	"shyrio.com/position-service/core"
+	"shyrio.com/mochi/core"
 )
 
 func main() {

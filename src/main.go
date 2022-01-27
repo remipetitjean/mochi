@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"shyrio.com/position-service/core"
-	"shyrio.com/position-service/routers"
+	"shyrio.com/mochi/core"
+	"shyrio.com/mochi/routers"
 )
 
 var router *gin.Engine

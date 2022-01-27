@@ -1,4 +1,4 @@
-module shyrio.com/position-service
+module shyrio.com/mochi
 
 go 1.17
 

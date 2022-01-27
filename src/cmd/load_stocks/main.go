@@ -1,8 +1,8 @@
 package main
 
 import (
-	"shyrio.com/position-service/core"
-	libs "shyrio.com/position-service/libs/iex"
+	"shyrio.com/mochi/core"
+	libs "shyrio.com/mochi/libs/iex"
 )
 
 func main() {
