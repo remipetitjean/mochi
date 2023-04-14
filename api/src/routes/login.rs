@@ -4,7 +4,7 @@ use serde::Deserialize;
 use serde_json::{json, Value};
 use tower_cookies::{Cookie, Cookies};
 
-use crate::{web, Error, Result};
+use crate::{AUTH_TOKEN, Error, Result};
 
 #[derive(Debug, Deserialize)]
 struct LoginPayload {
@@ -26,7 +26,7 @@ async fn login(cookies: Cookies, payload: Json<LoginPayload>) -> Result<Json<Val
 
     // add cookie
     // FIXME: implement real auth-token generation / signature
-    cookies.add(Cookie::new(web::AUTH_TOKEN, "user-1.exp.sign"));
+    cookies.add(Cookie::new(AUTH_TOKEN, "user-1.exp.sign"));
 
     // create the success body
     let body = Json(json!({

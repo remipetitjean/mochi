@@ -9,7 +9,7 @@ use tower_cookies::{Cookie, Cookies};
 
 use crate::ctx::Ctx;
 use crate::model::ModelController;
-use crate::web::AUTH_TOKEN;
+use crate::AUTH_TOKEN;
 use crate::{Error, Result};
 
 pub async fn mw_require_auth<B>(
