@@ -2,6 +2,7 @@ use axum::http::{Method, Uri};
 use axum::middleware;
 use axum::response::{IntoResponse, Response};
 use axum::{Json, Router};
+use model::user::UserController;
 use serde_json::json;
 use std::net::SocketAddr;
 use tower_cookies::CookieManagerLayer;
@@ -10,36 +11,34 @@ use uuid::Uuid;
 pub use self::error::{Error, Result};
 use crate::ctx::Ctx;
 use crate::logs::log_request;
-use crate::model::ModelController;
+use crate::model_old::ModelController;
 use crate::mw_auth::{mw_ctx_resolver, mw_require_auth};
 
 mod ctx;
 pub mod error;
 mod logs;
-mod model;
+mod model_old;
 mod mw_auth;
 mod routes;
 
-
 pub const AUTH_TOKEN: &str = "auth-token";
-
 
 pub async fn main() -> Result<()> {
     // initialize microcontroller
-    let mc = ModelController::new().await?;
-
-    let auth_routes = routes::bot::routes(mc.clone())
-        .route_layer(middleware::from_fn(mw_require_auth));
+    let model_controller = ModelController::new().await?;
+    let user_controller = UserController::new().await;
 
     let routes = Router::new()
         .merge(routes::hello::routes())
-        .merge(routes::login::routes())
-        .nest("/bot", auth_routes)
+        .nest("/user", routes::user::routes(user_controller.clone()))
+        .nest("/bot", routes::bot::routes(model_controller.clone()))
+        .route_layer(middleware::from_fn(mw_require_auth))
         .layer(middleware::map_response(main_response_mapper))
         .layer(middleware::from_fn_with_state(
-            mc.clone(),
+            model_controller.clone(),
             mw_ctx_resolver,
         ))
+        .merge(routes::login::routes())
         .layer(CookieManagerLayer::new());
 
     // start server

@@ -8,7 +8,6 @@ use lazy_regex::regex_captures;
 use tower_cookies::{Cookie, Cookies};
 
 use crate::ctx::Ctx;
-use crate::model::ModelController;
 use crate::AUTH_TOKEN;
 use crate::{Error, Result};
 
@@ -35,7 +34,6 @@ fn parse_token(token: String) -> Result<(u64, String, String)> {
 }
 
 pub async fn mw_ctx_resolver<B>(
-    _mc: State<ModelController>, // database connection
     cookies: Cookies,
     mut req: Request<B>,
     next: Next<B>,

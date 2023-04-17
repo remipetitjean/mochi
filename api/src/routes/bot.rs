@@ -3,7 +3,7 @@ use axum::routing::{delete as delete_, get, post};
 use axum::{Json, Router};
 
 use crate::ctx::Ctx;
-use crate::model::{Bot, BotForCreate, ModelController};
+use crate::model_old::{Bot, BotForCreate, ModelController};
 use crate::Result;
 
 #[derive(Clone, FromRef)]

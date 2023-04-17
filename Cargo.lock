@@ -38,6 +38,7 @@ dependencies = [
  "serde_json",
  "serde_with",
  "strum_macros",
+ "thiserror",
  "tokio",
  "tower-cookies",
  "uuid",
@@ -818,8 +819,10 @@ dependencies = [
 name = "model"
 version = "0.1.0"
 dependencies = [
+ "axum",
  "random-string",
  "serde",
+ "strum_macros",
 ]
 
 [[package]]
