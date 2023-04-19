@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 async-trait = "0.1"
 axum = { version = "0.6", features = ["macros"]}
+trait_enum = "0.5"
 lazy-regex = "2"
 model = { path = "../model" }
 serde = { version = "1", features = ["derive"] }

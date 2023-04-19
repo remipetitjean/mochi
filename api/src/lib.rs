@@ -1,3 +1,5 @@
+extern crate trait_enum;
+
 use axum::http::{Method, Uri};
 use axum::middleware;
 use axum::response::{IntoResponse, Response};
@@ -8,7 +10,7 @@ use std::net::SocketAddr;
 use tower_cookies::CookieManagerLayer;
 use uuid::Uuid;
 
-pub use self::error::{Error, Result};
+pub use self::error::{LoginError, Result};
 use crate::ctx::Ctx;
 use crate::logs::log_request;
 use crate::model_old::ModelController;
@@ -62,7 +64,8 @@ async fn main_response_mapper(
     let uuid = Uuid::new_v4();
 
     // get the potential error
-    let service_error = res.extensions().get::<Error>();
+    let service_error = res.extensions().get::<LoginError>();
+    println!("{:?}", service_error);
     let client_status_error = service_error.map(|se| se.client_status_and_error());
 
     // if client error, build new response

@@ -2,11 +2,20 @@ use axum::http::StatusCode;
 use axum::response::{IntoResponse, Response};
 use serde::Serialize;
 
-pub type Result<T> = core::result::Result<T, Error>;
+pub type Result<T> = core::result::Result<T, LoginError>;
+
+
+
+pub trait ErrorTrait {
+    fn client_status_and_error(&self) -> (StatusCode, ClientError);
+}
+
+
+
 
 #[derive(Clone, Debug, Serialize, strum_macros::AsRefStr)]
 #[serde(tag = "type", content = "data")]
-pub enum Error {
+pub enum LoginError {
     LoginFail,
 
     // TODO Refactor as auth errors
@@ -18,15 +27,15 @@ pub enum Error {
     BotDeleteFailIdNotFound { id: u64 },
 }
 
-impl std::fmt::Display for Error {
+impl std::fmt::Display for LoginError {
     fn fmt(&self, fmt: &mut std::fmt::Formatter) -> std::result::Result<(), std::fmt::Error> {
         write!(fmt, "{self:?}")
     }
 }
 
-impl std::error::Error for Error {}
+impl std::error::Error for LoginError {}
 
-impl IntoResponse for Error {
+impl IntoResponse for LoginError {
     fn into_response(self) -> Response {
         println!("->> {:<12} - {self:?}", "INTO_RESP");
 
@@ -37,7 +46,7 @@ impl IntoResponse for Error {
     }
 }
 
-impl Error {
+impl LoginError {
     pub fn client_status_and_error(&self) -> (StatusCode, ClientError) {
         #[allow(unreachable_patterns)]
         match self {
@@ -70,4 +79,5 @@ pub enum ClientError {
     NO_AUTH,
     INVALID_PARAMS,
     SERVICE_ERROR,
+    NOT_FOUND,
 }

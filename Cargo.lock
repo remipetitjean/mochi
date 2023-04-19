@@ -41,6 +41,7 @@ dependencies = [
  "thiserror",
  "tokio",
  "tower-cookies",
+ "trait_enum",
  "uuid",
 ]
 
@@ -1599,6 +1600,12 @@ checksum = "24eb03ba0eab1fd845050058ce5e616558e8f8d8fca633e6b163fe25c797213a"
 dependencies = [
  "once_cell",
 ]
+
+[[package]]
+name = "trait_enum"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "130dd741d3c71f76d031e58caffff3624eaaa2db9bd8c4b05406a71885300fc7"
 
 [[package]]
 name = "try-lock"

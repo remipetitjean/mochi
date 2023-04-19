@@ -9,7 +9,7 @@ use tower_cookies::{Cookie, Cookies};
 
 use crate::ctx::Ctx;
 use crate::AUTH_TOKEN;
-use crate::{Error, Result};
+use crate::{LoginError, Result};
 
 pub async fn mw_require_auth<B>(
     ctx: Result<Ctx>,
@@ -25,11 +25,11 @@ pub async fn mw_require_auth<B>(
 /// Returns (user_id, expiration, signature)
 fn parse_token(token: String) -> Result<(u64, String, String)> {
     let (_whole, user_id, exp, sign) = regex_captures!(r#"^user-(\d+)\.(.+)\.(.+)"#, &token)
-        .ok_or(Error::AuthFailTokenWrongFormat)?;
+        .ok_or(LoginError::AuthFailTokenWrongFormat)?;
 
     let user_id: u64 = user_id
         .parse()
-        .map_err(|_| Error::AuthFailTokenWrongFormat)?;
+        .map_err(|_| LoginError::AuthFailTokenWrongFormat)?;
     Ok((user_id, exp.to_string(), sign.to_string()))
 }
 
@@ -41,7 +41,7 @@ pub async fn mw_ctx_resolver<B>(
     println!("->> {:<12} - mw_ctx_resolver", "MIDDLEWARE");
     let auth_token: Option<String> = cookies.get(AUTH_TOKEN).map(|c| c.value().to_string());
     let result_ctx = match auth_token
-        .ok_or(Error::AuthFailNoAuthTokenCookie)
+        .ok_or(LoginError::AuthFailNoAuthTokenCookie)
         .and_then(parse_token)
     {
         Ok((user_id, _exp, _sign)) => {
@@ -52,7 +52,7 @@ pub async fn mw_ctx_resolver<B>(
     };
 
     // remove the cookie if something went wrong other than NoAuthTokenCookie
-    if result_ctx.is_err() && !matches!(result_ctx, Err(Error::AuthFailNoAuthTokenCookie)) {
+    if result_ctx.is_err() && !matches!(result_ctx, Err(LoginError::AuthFailNoAuthTokenCookie)) {
         cookies.remove(Cookie::named(AUTH_TOKEN))
     }
 
@@ -64,14 +64,14 @@ pub async fn mw_ctx_resolver<B>(
 
 #[async_trait]
 impl<S: Send + Sync> FromRequestParts<S> for Ctx {
-    type Rejection = Error;
+    type Rejection = LoginError;
 
     async fn from_request_parts(parts: &mut Parts, _state: &S) -> Result<Self> {
         println!("->> {:<12} - Ctx", "EXTRACTOR");
         parts
             .extensions
             .get::<Result<Ctx>>()
-            .ok_or(Error::AuthFailCtxNotInRequestExt)?
+            .ok_or(LoginError::AuthFailCtxNotInRequestExt)?
             .clone()
     }
 }

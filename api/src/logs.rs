@@ -7,14 +7,14 @@ use uuid::Uuid;
 
 use crate::ctx::Ctx;
 use crate::error::ClientError;
-use crate::Error;
+use crate::LoginError;
 
 pub async fn log_request(
     uuid: Uuid,
     req_method: Method,
     uri: Uri,
     ctx: Option<Ctx>,
-    service_error: Option<&Error>,
+    service_error: Option<&LoginError>,
     client_error: Option<ClientError>,
 ) {
     let timestamp = SystemTime::now()

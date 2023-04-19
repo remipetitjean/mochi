@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use std::sync::{Arc, Mutex};
 
 use crate::ctx::Ctx;
-use crate::{Error, Result};
+use crate::{LoginError, Result};
 
 #[derive(Clone, Debug, Serialize)]
 pub struct Bot {
@@ -51,6 +51,6 @@ impl ModelController {
     pub async fn delete(&self, _ctx: Ctx, id: u64) -> Result<Bot> {
         let mut store = self.bots_store.lock().unwrap();
         let bot = store.get_mut(id as usize).and_then(|b| b.take());
-        bot.ok_or(Error::BotDeleteFailIdNotFound { id })
+        bot.ok_or(LoginError::BotDeleteFailIdNotFound { id })
     }
 }

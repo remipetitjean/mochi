@@ -4,7 +4,7 @@ use serde::Deserialize;
 use serde_json::{json, Value};
 use tower_cookies::{Cookie, Cookies};
 
-use crate::{Error, Result, AUTH_TOKEN};
+use crate::{LoginError, Result, AUTH_TOKEN};
 
 #[derive(Debug, Deserialize)]
 struct LoginPayload {
@@ -21,7 +21,7 @@ async fn login(cookies: Cookies, payload: Json<LoginPayload>) -> Result<Json<Val
 
     // TODO: implement real auth logic
     if payload.username != "remi" || payload.password != "password" {
-        return Err(Error::LoginFail);
+        return Err(LoginError::LoginFail);
     }
 
     // add cookie

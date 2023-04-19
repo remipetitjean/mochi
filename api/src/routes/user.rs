@@ -7,8 +7,9 @@ use model::user;
 use thiserror::Error;
 
 use crate::ctx::Ctx;
+use crate::error::ClientError;
 
-#[derive(Error, Debug)]
+#[derive(Clone, Debug, Error, strum_macros::AsRefStr)]
 pub enum UserError {
     #[error("cannot create user")]
     UserCreateError(#[from] user::UserCreateError),
@@ -31,6 +32,12 @@ impl IntoResponse for UserError {
         response.extensions_mut().insert(self);
 
         response
+    }
+}
+
+impl UserError {
+    pub fn client_status_and_error(&self) -> (StatusCode, ClientError) {
+        (StatusCode::NOT_FOUND, ClientError::INVALID_PARAMS)
     }
 }
 
