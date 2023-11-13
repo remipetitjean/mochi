@@ -4,9 +4,13 @@ version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = "model"
+path = "src/mod.rs"
 
 [dependencies]
-axum = { version = "0.6", features = ["macros"]}
-random-string = "1"
-serde = { version = "1", features = ["derive"] }
-strum_macros = "0.24"
+async-trait = "^0.1.74"
+sea-orm = { version = "^0.12.4", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros"] }
+serde = { version = "^1.0.190", features = ["derive"] }
+thiserror = "^1.0.50"
+

@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  mochi-db:
+    image: postgres:16
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: shyrio
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mochi
+      PGUSER: shyrio
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d mochi"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
