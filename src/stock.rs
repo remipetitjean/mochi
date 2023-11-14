@@ -6,7 +6,9 @@ struct ExchangeApi {
     data: Vec<Exchange>,
 }
 
-pub async fn update_stock_reference(db: DatabaseConnection) -> Result<(), Box<dyn std::error::Error>> {
+pub async fn update_stock_reference(
+    db: DatabaseConnection,
+) -> Result<(), Box<dyn std::error::Error>> {
     update_exchange(db).await?;
     Ok(())
 }
