@@ -1454,10 +1454,8 @@ dependencies = [
 name = "model"
 version = "0.1.0"
 dependencies = [
- "async-trait",
  "sea-orm",
  "serde",
- "thiserror",
 ]
 
 [[package]]
@@ -2039,6 +2037,7 @@ dependencies = [
 name = "rust-axum-intro"
 version = "0.1.0"
 dependencies = [
+ "dotenvy",
  "model",
  "reqwest",
  "serde",

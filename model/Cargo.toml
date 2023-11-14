@@ -9,8 +9,5 @@ name = "model"
 path = "src/mod.rs"
 
 [dependencies]
-async-trait = "^0.1.74"
 sea-orm = { version = "^0.12.4", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros"] }
 serde = { version = "^1.0.190", features = ["derive"] }
-thiserror = "^1.0.50"
-

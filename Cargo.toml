@@ -7,7 +7,8 @@ edition = "2021"
 members = [ "migration", "model" ]
 
 [dependencies]
+dotenvy = "^0.15.7"
 model = { path = "model" }
 reqwest = { version = "^0.11", features = ["json"] }
-serde = "^1.0.192"
+serde = { version = "^1.0.192", features = ["derive"] }
 tokio = { version = "^1.34.0", features = ["full"] }
