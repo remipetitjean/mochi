@@ -2,7 +2,8 @@
 
 pub use super::controller::exchange::ExchangeController;
 pub use super::controller::stock::StockController;
-pub use super::currency::Entity as Currency;
+pub use super::controller::currency::CurrencyController;
+pub use super::currency::{ActiveModel as ActiveCurrency, Model as Currency};
 pub use super::db::get_database_connection;
 pub use super::exchange::{ActiveModel as ActiveExchange, Model as Exchange};
 pub use super::stock::{ActiveModel as ActiveStock, Model as Stock};
