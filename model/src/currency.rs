@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 #[sea_orm(table_name = "currency")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
-    pub code: String,
+    pub id: String,
     pub name: String,
     pub symbol: Option<String>,
 }

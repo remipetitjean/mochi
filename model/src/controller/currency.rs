@@ -9,7 +9,7 @@ impl CurrencyController {
     pub async fn insert_many(db: &DbConn, instances: Vec<Currency>) -> Result<(), DbErr> {
         let existing_ids: Vec<String> = Entity::find()
             .select_only()
-            .column(Column::Code)
+            .column(Column::Id)
             .into_tuple()
             .all(db)
             .await?;
@@ -20,13 +20,13 @@ impl CurrencyController {
         // new instances
         let new_instances: Vec<Currency> = instances
             .into_iter()
-            .filter(|instance| !existing_ids_set.contains(&instance.code))
+            .filter(|instance| !existing_ids_set.contains(&instance.id))
             .collect::<Vec<Currency>>();
 
         let new_active_instances: Vec<ActiveCurrency> = new_instances
             .into_iter()
             .map(|instance| ActiveCurrency {
-                code: Set(instance.code.to_owned()),
+                id: Set(instance.id.to_owned()),
                 name: Set(instance.name.to_owned()),
                 symbol: Set(instance.symbol.to_owned()),
                 ..Default::default()
@@ -41,4 +41,3 @@ impl CurrencyController {
         Ok(())
     }
 }
-
