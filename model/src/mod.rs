@@ -3,6 +3,7 @@
 pub mod prelude;
 
 pub mod controller;
+pub mod currency;
 pub mod db;
 pub mod exchange;
 pub mod stock;

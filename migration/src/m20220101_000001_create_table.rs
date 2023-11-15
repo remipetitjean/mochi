@@ -6,6 +6,24 @@ pub struct Migration;
 #[async_trait::async_trait]
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
+        // Currency
+        manager
+            .create_table(
+                Table::create()
+                    .table(Currency::Table)
+                    .if_not_exists()
+                    .col(
+                        ColumnDef::new(Currency::Code)
+                            .string()
+                            .not_null()
+                            .primary_key(),
+                    )
+                    .col(ColumnDef::new(Currency::Name).string().not_null())
+                    .col(ColumnDef::new(Currency::Symbol).string())
+                    .to_owned(),
+            )
+            .await?;
+
         manager
             .create_table(
                 Table::create()
@@ -54,8 +72,20 @@ impl MigrationTrait for Migration {
 
         manager
             .drop_table(Table::drop().table(Exchange::Table).to_owned())
+            .await?;
+
+        manager
+            .drop_table(Table::drop().table(Currency::Table).to_owned())
             .await
     }
+}
+
+#[derive(DeriveIden)]
+enum Currency {
+    Table,
+    Code,
+    Name,
+    Symbol,
 }
 
 #[derive(DeriveIden)]
