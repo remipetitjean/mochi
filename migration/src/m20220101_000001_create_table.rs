@@ -13,7 +13,7 @@ impl MigrationTrait for Migration {
                     .table(Currency::Table)
                     .if_not_exists()
                     .col(
-                        ColumnDef::new(Currency::Code)
+                        ColumnDef::new(Currency::Id)
                             .string()
                             .not_null()
                             .primary_key(),
@@ -83,7 +83,7 @@ impl MigrationTrait for Migration {
 #[derive(DeriveIden)]
 enum Currency {
     Table,
-    Code,
+    Id,
     Name,
     Symbol,
 }

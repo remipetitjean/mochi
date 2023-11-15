@@ -15,7 +15,7 @@ pub async fn update_stock_reference(
     db: DatabaseConnection,
 ) -> Result<(), Box<dyn std::error::Error>> {
     update_exchange(db.clone()).await?;
-    update_stock(db).await?;
+    //update_stock(db).await?;
     Ok(())
 }
 

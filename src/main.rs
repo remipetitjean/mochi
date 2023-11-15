@@ -12,8 +12,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenvy::dotenv().ok();
 
     let db = get_database_connection().await;
-    update_currency(db).await?;
-    //update_stock_reference(db).await?;
+    //update_currency(db).await?;
+    update_stock_reference(db).await?;
 
     Ok(())
 }
