@@ -1,0 +1,25 @@
+id,region,sub_region,intermediate_region
+1,Africa,Northern Africa,
+2,Africa,Sub-Saharan Africa,Eastern Africa
+3,Africa,Sub-Saharan Africa,Middle Africa
+4,Africa,Sub-Saharan Africa,Southern Africa
+5,Africa,Sub-Saharan Africa,Western Africa
+6,Americas,Latin America and the Caribbean,Caribbean
+7,Americas,Latin America and the Caribbean,Central America
+8,Americas,Latin America and the Caribbean,South America
+9,Americas,Northern America,
+10,Antartica,,
+11,Asia,Central Asia,
+12,Asia,Eastern Asia,
+13,Asia,South-eastern Asia,
+14,Asia,Southern Asia,
+15,Asia,Western Asia,
+16,Europe,Eastern Europe,
+17,Europe,Northern Europe,Channel Islands
+18,Europe,Northern Europe,
+19,Europe,Southern Europe,
+20,Europe,Western Europe,
+21,Oceania,Australia and New Zealand,
+22,Oceania,Melanesia,
+23,Oceania,Micronesia,
+24,Oceania,Polynesia,

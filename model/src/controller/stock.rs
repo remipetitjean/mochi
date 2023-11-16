@@ -39,7 +39,7 @@ impl StockController {
 
         if active_instances.len() > 0 {
             for v in active_instances.chunks(500) {
-              Entity::insert_many(v.to_owned()).exec(db).await?;
+                Entity::insert_many(v.to_owned()).exec(db).await?;
             }
             //Entity::insert_many(active_instances).exec(db).await?;
         }
