@@ -11,9 +11,8 @@ use model::prelude::get_database_connection;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenvy::dotenv().ok();
 
-    println!("starting");
-
     let db = get_database_connection().await;
+
     // static
     update_currency(db.clone()).await?;
     update_region(db.clone()).await?;

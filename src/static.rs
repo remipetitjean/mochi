@@ -24,7 +24,6 @@ pub async fn update_country(db: DatabaseConnection) -> Result<(), Box<dyn std::e
     let mut reader = Reader::from_path("seed/country.csv")?;
     let iter = reader.deserialize();
     let countries: Vec<Country> = iter.into_iter().flatten().collect();
-    println!("{:?}", countries);
     CountryController::insert_many(&db, countries).await?;
     Ok(())
 }
