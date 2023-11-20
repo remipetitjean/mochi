@@ -3,7 +3,7 @@
 mod r#static;
 mod stock;
 
-use crate::r#static::update_currency;
+use crate::r#static::{update_country, update_currency, update_region};
 use crate::stock::update_stock_reference;
 use model::prelude::get_database_connection;
 
@@ -11,9 +11,15 @@ use model::prelude::get_database_connection;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenvy::dotenv().ok();
 
+    println!("starting");
+
     let db = get_database_connection().await;
-    //update_currency(db).await?;
-    update_stock_reference(db).await?;
+    // static
+    update_currency(db.clone()).await?;
+    update_region(db.clone()).await?;
+    update_country(db).await?;
+
+    //update_stock_reference(db).await?;
 
     Ok(())
 }

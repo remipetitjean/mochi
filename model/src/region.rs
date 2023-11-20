@@ -4,25 +4,24 @@ use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
-#[sea_orm(table_name = "exchange")]
+#[sea_orm(table_name = "region")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
-    #[serde(rename(deserialize = "code"))]
-    pub id: String,
-    pub name: String,
-    pub country: String,
-    pub timezone: String,
+    pub id: i32,
+    pub region: String,
+    pub sub_region: Option<String>,
+    pub intermediate_region: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-    #[sea_orm(has_many = "super::stock_exchange::Entity")]
-    StockExchange,
+    #[sea_orm(has_many = "super::country::Entity")]
+    Country,
 }
 
-impl Related<super::stock_exchange::Entity> for Entity {
+impl Related<super::country::Entity> for Entity {
     fn to() -> RelationDef {
-        Relation::StockExchange.def()
+        Relation::Country.def()
     }
 }
 

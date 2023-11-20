@@ -3,7 +3,11 @@
 pub mod prelude;
 
 pub mod controller;
+pub mod country;
 pub mod currency;
 pub mod db;
 pub mod exchange;
+pub mod region;
+pub mod sea_orm_active_enums;
 pub mod stock;
+pub mod stock_exchange;

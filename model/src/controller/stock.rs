@@ -27,9 +27,6 @@ impl StockController {
             .map(|instance| ActiveStock {
                 id: Set(instance.id.to_owned()),
                 name: Set(instance.name.to_owned()),
-                currency: Set(instance.currency.to_owned()),
-                exchange_id: Set(instance.exchange_id.to_owned()),
-                mic_code: Set(instance.mic_code.to_owned()),
                 country: Set(instance.country.to_owned()),
                 r#type: Set(instance.r#type.to_owned()),
                 ..Default::default()
