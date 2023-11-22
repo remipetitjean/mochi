@@ -4,7 +4,7 @@ mod r#static;
 mod stock;
 
 use crate::r#static::{update_country, update_currency, update_region};
-use crate::stock::update_stock_reference;
+use crate::stock::{update_exchange, update_stock};
 use model::prelude::get_database_connection;
 
 #[tokio::main]
@@ -16,9 +16,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // static
     update_currency(db.clone()).await?;
     update_region(db.clone()).await?;
-    update_country(db).await?;
+    update_country(db.clone()).await?;
 
-    //update_stock_reference(db).await?;
+    // stock
+    update_exchange(db.clone()).await?;
+    update_stock(db).await?;
 
     Ok(())
 }
