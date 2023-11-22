@@ -4,10 +4,6 @@ use super::sea_orm_active_enums::StockType;
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Deserializer, Serialize};
 
-fn print_type_of<T>(_: &T) {
-    println!("{}", std::any::type_name::<T>())
-}
-
 fn deserialize_type<'de, D>(deserializer: D) -> Result<StockType, D::Error>
 where
     D: Deserializer<'de>,

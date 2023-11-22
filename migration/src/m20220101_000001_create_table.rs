@@ -243,30 +243,32 @@ pub enum StockType {
     CommonStock,
     #[iden = "American Depositary Receipt"]
     AmericanDepositaryReceipt,
-    #[iden = "REIT"]
-    REIT,
-    #[iden = "Unit"]
-    Unit,
-    #[iden = "Global Depositary Receipt"]
-    GlobalDepositaryReceipt,
     #[iden = "Depositary Receipt"]
     DepositaryReceipt,
-    #[iden = "Preferred Stock"]
-    PreferredStock,
+    #[iden = "ETF"]
+    ETF,
+    #[iden = "Global Depositary Receipt"]
+    GlobalDepositaryReceipt,
     #[iden = "Limited Partnership"]
     LimitedPartnership,
-    #[iden = "Warrant"]
-    Warrant,
+    #[iden = "Mutual Fund"]
+    MutualFund,
+    #[iden = "Preferred Stock"]
+    PreferredStock,
+    #[iden = "REIT"]
+    REIT,
+    #[iden = "Right"]
+    Right,
     #[iden = "Structured Product"]
     StructuredProduct,
     #[iden = "Trust"]
     Trust,
-    #[iden = "ETF"]
-    ETF,
-    #[iden = "Right"]
-    Right,
-    #[iden = "Mutual Fund"]
-    MutualFund,
+    #[iden = "Unit"]
+    Unit,
+    #[iden = "Unknown"]
+    Unknown,
+    #[iden = "Warrant"]
+    Warrant,
 }
 
 #[derive(DeriveIden)]
