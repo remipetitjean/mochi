@@ -2,16 +2,29 @@
 
 use super::sea_orm_active_enums::StockType;
 use sea_orm::entity::prelude::*;
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Deserializer, Serialize};
+
+fn print_type_of<T>(_: &T) {
+    println!("{}", std::any::type_name::<T>())
+}
+
+fn deserialize_type<'de, D>(deserializer: D) -> Result<StockType, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let buf = String::deserialize(deserializer)?;
+    Ok(StockType::from_string(&buf))
+}
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
 #[sea_orm(table_name = "stock")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
-    #[serde(rename(deserialize = "code"))]
+    #[serde(rename(deserialize = "symbol"))]
     pub id: String,
     pub name: String,
     pub country: String,
+    #[serde(deserialize_with = "deserialize_type")]
     pub r#type: StockType,
 }
 

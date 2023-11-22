@@ -1,10 +1,12 @@
-use model::prelude::{DatabaseConnection, Exchange, ExchangeController, Stock, StockController};
+use model::prelude::{DatabaseConnection, Exchange, ExchangeController, StockController, Stock};
 use serde::Deserialize;
+
 
 #[derive(Debug, Deserialize)]
 struct ExchangeApi {
     data: Vec<Exchange>,
 }
+
 
 #[derive(Debug, Deserialize)]
 struct StockApi {
@@ -23,7 +25,6 @@ pub async fn update_stock(db: DatabaseConnection) -> Result<(), Box<dyn std::err
     let resp = reqwest::get("https://api.twelvedata.com/stocks").await?;
     let stock_api: StockApi = resp.json().await?;
     let stocks = stock_api.data;
-    println!("{:?}", stocks);
-    //StockController::insert_many(&db, stocks).await?;
+    StockController::insert_many(&db, stocks).await?;
     Ok(())
 }

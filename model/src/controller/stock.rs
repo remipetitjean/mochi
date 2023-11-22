@@ -43,4 +43,8 @@ impl StockController {
 
         Ok(())
     }
+
+    pub async fn read(db: &DbConn) -> Result<Vec<Stock>, DbErr> {
+        Entity::find().all(db).await
+    }
 }

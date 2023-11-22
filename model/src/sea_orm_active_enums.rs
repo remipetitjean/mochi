@@ -30,8 +30,32 @@ pub enum StockType {
     StructuredProduct,
     #[sea_orm(string_value = "Trust")]
     Trust,
+    #[sea_orm(string_value = "Unknown")]
+    Unknown,
     #[sea_orm(string_value = "Unit")]
     Unit,
     #[sea_orm(string_value = "Warrant")]
     Warrant,
+}
+
+impl StockType {
+    pub fn from_string(value: &str) -> StockType {
+        match value {
+            "American Depositary Receipt" => StockType::AmericanDepositaryReceipt,
+            "Common Stock" => StockType::CommonStock,
+            "Depositary Receipt" => StockType::DepositaryReceipt,
+            "ETF" => StockType::Etf,
+            "Global Depositary Receipt" => StockType::GlobalDepositaryReceipt,
+            "Limited Partnership" => StockType::LimitedPartnership,
+            "Mutual Fund" => StockType::MutualFund,
+            "Preferred Stock" => StockType::PreferredStock,
+            "REIT" => StockType::Reit,
+            "Right" => StockType::Right,
+            "Structured Product" => StockType::StructuredProduct,
+            "Trust" => StockType::Trust,
+            "Unit" => StockType::Unit,
+            "Warrant" => StockType::Warrant,
+            _ => StockType::Unknown,
+        }
+    }
 }
