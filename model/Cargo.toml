@@ -9,5 +9,5 @@ name = "model"
 path = "src/mod.rs"
 
 [dependencies]
-sea-orm = { version = "^0.12.4", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros"] }
+sea-orm = { version = "^0.12.6", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros"] }
 serde = { version = "^1.0.190", features = ["derive"] }
