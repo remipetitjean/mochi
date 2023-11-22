@@ -1,12 +1,10 @@
-use model::prelude::{DatabaseConnection, Exchange, ExchangeController, StockController, Stock};
+use model::prelude::{DatabaseConnection, Exchange, ExchangeController, Stock, StockController};
 use serde::Deserialize;
-
 
 #[derive(Debug, Deserialize)]
 struct ExchangeApi {
     data: Vec<Exchange>,
 }
-
 
 #[derive(Debug, Deserialize)]
 struct StockApi {
