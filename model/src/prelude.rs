@@ -13,5 +13,5 @@ pub use super::exchange::{ActiveModel as ActiveExchange, Model as Exchange};
 pub use super::region::{ActiveModel as ActiveRegion, Model as Region};
 pub use super::sea_orm_active_enums::StockType;
 pub use super::stock::{ActiveModel as ActiveStock, Model as Stock};
-pub use super::stock_exchange::{ActiveModel as ActiveStockExchange, Model as StockExchange};
+pub use super::stock_exchange::{ActiveModel as ActiveStockExchange, NewStockExchange, Model as StockExchange};
 pub use sea_orm::DatabaseConnection;
