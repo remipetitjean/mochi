@@ -142,11 +142,6 @@ impl MigrationTrait for Migration {
                             .char_len(2)
                             .not_null(),
                     )
-                    .col(
-                        ColumnDef::new(StockExchange::Type)
-                            .enumeration(StockType::Table, StockType::iter().skip(1))
-                            .not_null(),
-                    )
                     .foreign_key(
                         ForeignKey::create()
                             .name("fk_stock_exchange_stock_id")
@@ -288,5 +283,4 @@ enum StockExchange {
     ExchangeId,
     MicCode,
     CurrencyId,
-    Type,
 }

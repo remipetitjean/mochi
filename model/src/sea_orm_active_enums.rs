@@ -30,10 +30,10 @@ pub enum StockType {
     StructuredProduct,
     #[sea_orm(string_value = "Trust")]
     Trust,
-    #[sea_orm(string_value = "Unknown")]
-    Unknown,
     #[sea_orm(string_value = "Unit")]
     Unit,
+    #[sea_orm(string_value = "Unknown")]
+    Unknown,
     #[sea_orm(string_value = "Warrant")]
     Warrant,
 }
