@@ -4,11 +4,10 @@ use super::sea_orm_active_enums::StockType;
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, DeriveEntityModel, Deserialize, Eq, Hash, PartialEq, Serialize)]
+#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
 #[sea_orm(table_name = "stock")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
-    #[serde(rename(deserialize = "symbol"))]
     pub id: String,
     pub name: String,
     pub country: String,

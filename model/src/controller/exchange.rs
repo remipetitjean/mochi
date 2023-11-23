@@ -16,6 +16,7 @@ impl ExchangeController {
 
         let existing_ids_set: HashSet<String> =
             HashSet::from_iter(existing_ids.iter().map(|x| x.to_string()));
+        println!("exchanges: {:?}", existing_ids_set);
 
         let instances: Vec<Exchange> = instances
             .into_iter()

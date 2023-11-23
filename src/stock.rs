@@ -26,11 +26,10 @@ pub struct StockExchangeApi {
     pub country: String,
     #[serde(deserialize_with = "deserialize_type")]
     pub r#type: StockType,
-    #[serde(rename(deserialize = "exchange"))]
+    #[serde(rename(deserialize = "mic_code"))]
     pub exchange_id: String,
     #[serde(rename(deserialize = "currency"))]
     pub currency_id: Option<String>,
-    pub mic_code: String,
 }
 
 #[derive(Debug, Deserialize)]
@@ -81,24 +80,18 @@ pub async fn update_stock(db: DatabaseConnection) -> Result<(), Box<dyn std::err
 
     // stock_exchange
     let mut stock_exchange_map: HashMap<StockExchangeTuple, NewStockExchange> = HashMap::new();
-    let currency_map: HashMap<String, String> = CurrencyController::hashmap_name_to_id(&db).await?;
     for stock in exchange_stocks_api {
         let key = StockExchangeTuple {
             stock_id: stock.id.clone(),
             exchange_id: stock.exchange_id.clone(),
         };
         if !stock_exchange_map.contains_key(&key) {
-            let currency_id: Option<String> = match currency_map.get(&stock.name) {
-                Some(currency_id) => Some(currency_id.clone()),
-                None => None,
-            };
             stock_exchange_map.insert(
                 key,
                 NewStockExchange {
                     stock_id: stock.id,
                     exchange_id: stock.exchange_id,
                     currency_id: stock.currency_id,
-                    mic_code: stock.mic_code,
                 },
             );
         }

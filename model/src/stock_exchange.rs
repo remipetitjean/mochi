@@ -10,7 +10,6 @@ pub struct Model {
     pub id: i32,
     pub stock_id: String,
     pub exchange_id: String,
-    pub mic_code: String,
     pub currency_id: Option<String>,
 }
 
@@ -66,6 +65,5 @@ impl ActiveModelBehavior for ActiveModel {}
 pub struct NewStockExchange {
     pub stock_id: String,
     pub exchange_id: String,
-    pub mic_code: String,
     pub currency_id: Option<String>,
 }

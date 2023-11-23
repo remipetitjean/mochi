@@ -26,7 +26,7 @@ impl MigrationTrait for Migration {
                     .if_not_exists()
                     .col(
                         ColumnDef::new(Currency::Id)
-                            .string()
+                            .char_len(3)
                             .not_null()
                             .primary_key(),
                     )
@@ -88,7 +88,7 @@ impl MigrationTrait for Migration {
                     .if_not_exists()
                     .col(
                         ColumnDef::new(Exchange::Id)
-                            .string()
+                            .string_len(5)
                             .not_null()
                             .primary_key(),
                     )
@@ -133,11 +133,10 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(StockExchange::StockId).string().not_null())
                     .col(
                         ColumnDef::new(StockExchange::ExchangeId)
-                            .string()
+                            .string_len(5)
                             .not_null(),
                     )
-                    .col(ColumnDef::new(StockExchange::MicCode).string().not_null())
-                    .col(ColumnDef::new(StockExchange::CurrencyId).char_len(2))
+                    .col(ColumnDef::new(StockExchange::CurrencyId).char_len(3))
                     .foreign_key(
                         ForeignKey::create()
                             .name("fk_stock_exchange_stock_id")
@@ -277,6 +276,5 @@ enum StockExchange {
     Id,
     StockId,
     ExchangeId,
-    MicCode,
     CurrencyId,
 }
