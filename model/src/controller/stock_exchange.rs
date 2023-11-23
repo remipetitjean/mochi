@@ -14,7 +14,6 @@ impl StockExchangeController {
                 exchange_id: Set(instance.exchange_id.to_owned()),
                 mic_code: Set(instance.mic_code.to_owned()),
                 currency_id: Set(instance.currency_id.to_owned()),
-                r#type: Set(instance.r#type.to_owned()),
                 ..Default::default()
             })
             .rev()

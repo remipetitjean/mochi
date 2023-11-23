@@ -15,6 +15,14 @@ pub struct Model {
     pub currency_id: String,
 }
 
+#[derive(Clone, Debug, Deserialize, DeriveIntoActiveModel)]
+pub struct NewStockExchange {
+    pub stock_id: String,
+    pub exchange_id: String,
+    pub mic_code: String,
+    pub currency_id: String,
+}
+
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
     #[sea_orm(
