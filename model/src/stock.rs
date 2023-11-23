@@ -2,17 +2,9 @@
 
 use super::sea_orm_active_enums::StockType;
 use sea_orm::entity::prelude::*;
-use serde::{Deserialize, Deserializer, Serialize};
+use serde::{Deserialize, Serialize};
 
-fn deserialize_type<'de, D>(deserializer: D) -> Result<StockType, D::Error>
-where
-    D: Deserializer<'de>,
-{
-    let buf = String::deserialize(deserializer)?;
-    Ok(StockType::from_string(&buf))
-}
-
-#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
+#[derive(Clone, Debug, DeriveEntityModel, Deserialize, Eq, Hash, PartialEq, Serialize)]
 #[sea_orm(table_name = "stock")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
@@ -20,7 +12,6 @@ pub struct Model {
     pub id: String,
     pub name: String,
     pub country: String,
-    #[serde(deserialize_with = "deserialize_type")]
     pub r#type: StockType,
 }
 
