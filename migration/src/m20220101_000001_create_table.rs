@@ -137,11 +137,7 @@ impl MigrationTrait for Migration {
                             .not_null(),
                     )
                     .col(ColumnDef::new(StockExchange::MicCode).string().not_null())
-                    .col(
-                        ColumnDef::new(StockExchange::CurrencyId)
-                            .char_len(2)
-                            .not_null(),
-                    )
+                    .col(ColumnDef::new(StockExchange::CurrencyId).char_len(2))
                     .foreign_key(
                         ForeignKey::create()
                             .name("fk_stock_exchange_stock_id")

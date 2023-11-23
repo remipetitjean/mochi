@@ -1,7 +1,7 @@
 use crate::currency::{Column, Entity};
 use crate::prelude::{ActiveCurrency, Currency};
 use sea_orm::{entity::prelude::*, QuerySelect, Set};
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 
 pub struct CurrencyController {}
 
@@ -39,5 +39,23 @@ impl CurrencyController {
         }
 
         Ok(())
+    }
+
+    pub async fn hashmap(db: &DbConn) -> Result<HashMap<String, Currency>, DbErr> {
+        let currencies = Entity::find().all(db).await?;
+        let mut currency_map: HashMap<String, Currency> = HashMap::new();
+        for currency in currencies {
+            currency_map.insert(currency.id.clone(), currency);
+        }
+        Ok(currency_map)
+    }
+
+    pub async fn hashmap_name_to_id(db: &DbConn) -> Result<HashMap<String, String>, DbErr> {
+        let currencies = Entity::find().all(db).await?;
+        let mut currency_map: HashMap<String, String> = HashMap::new();
+        for currency in currencies {
+            currency_map.insert(currency.name.clone(), currency.id.clone());
+        }
+        Ok(currency_map)
     }
 }

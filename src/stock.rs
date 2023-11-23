@@ -1,6 +1,6 @@
 use model::prelude::{
-    DatabaseConnection, Exchange, ExchangeController, Stock, StockController, StockExchange,
-    StockType,
+    CurrencyController, DatabaseConnection, Exchange, ExchangeController, NewStockExchange, Stock,
+    StockController, StockExchangeController, StockType,
 };
 use serde::{Deserialize, Deserializer};
 use std::collections::HashMap;
@@ -28,8 +28,8 @@ pub struct StockExchangeApi {
     pub r#type: StockType,
     #[serde(rename(deserialize = "exchange"))]
     pub exchange_id: String,
-    #[serde(rename(deserialize = "currency_id"))]
-    pub currency_id: String,
+    #[serde(rename(deserialize = "currency"))]
+    pub currency_id: Option<String>,
     pub mic_code: String,
 }
 
@@ -80,24 +80,34 @@ pub async fn update_stock(db: DatabaseConnection) -> Result<(), Box<dyn std::err
     StockController::insert_many(&db, stocks).await?;
 
     // stock_exchange
-    let mut stock_exchange_map: HashMap<StockExchangeTuple, StockExchange> = HashMap::new();
+    let mut stock_exchange_map: HashMap<StockExchangeTuple, NewStockExchange> = HashMap::new();
+    let currency_map: HashMap<String, String> = CurrencyController::hashmap_name_to_id(&db).await?;
     for stock in exchange_stocks_api {
         let key = StockExchangeTuple {
             stock_id: stock.id.clone(),
             exchange_id: stock.exchange_id.clone(),
         };
         if !stock_exchange_map.contains_key(&key) {
-            //stock_exchange_map.insert(
-            //    key,
-            //    StockExchange {
-            //        id: None,
-            //        stock_id: stock.id,
-            //        exchange_id: stock.exchange_id,
-            //        currency_id: stock.currency_id,
-            //        mic_code: stock.mic_code,
-            //    },
-            //);
+            let currency_id: Option<String> = match currency_map.get(&stock.name) {
+                Some(currency_id) => Some(currency_id.clone()),
+                None => None,
+            };
+            stock_exchange_map.insert(
+                key,
+                NewStockExchange {
+                    stock_id: stock.id,
+                    exchange_id: stock.exchange_id,
+                    currency_id: stock.currency_id,
+                    mic_code: stock.mic_code,
+                },
+            );
         }
+        let stock_exchanges: Vec<NewStockExchange> = stock_exchange_map
+            .values()
+            .into_iter()
+            .map(|x| x.to_owned())
+            .collect();
+        StockExchangeController::insert_many(&db, stock_exchanges).await?;
     }
 
     Ok(())

@@ -7,20 +7,11 @@ use serde::{Deserialize, Serialize};
 #[sea_orm(table_name = "stock_exchange")]
 pub struct Model {
     #[sea_orm(primary_key)]
-    #[serde(rename(deserialize = "code"))]
     pub id: i32,
     pub stock_id: String,
     pub exchange_id: String,
     pub mic_code: String,
-    pub currency_id: String,
-}
-
-#[derive(Clone, Debug, Deserialize, DeriveIntoActiveModel)]
-pub struct NewStockExchange {
-    pub stock_id: String,
-    pub exchange_id: String,
-    pub mic_code: String,
-    pub currency_id: String,
+    pub currency_id: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -70,3 +61,11 @@ impl Related<super::stock::Entity> for Entity {
 }
 
 impl ActiveModelBehavior for ActiveModel {}
+
+#[derive(Clone, Debug, Deserialize, DeriveIntoActiveModel)]
+pub struct NewStockExchange {
+    pub stock_id: String,
+    pub exchange_id: String,
+    pub mic_code: String,
+    pub currency_id: Option<String>,
+}

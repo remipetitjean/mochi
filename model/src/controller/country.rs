@@ -1,6 +1,7 @@
 use crate::country::{Column, Entity};
 use crate::prelude::{ActiveCountry, Country};
 use sea_orm::{entity::prelude::*, QuerySelect, Set};
+use std::collections::HashMap;
 use std::collections::HashSet;
 
 pub struct CountryController {}
@@ -40,5 +41,14 @@ impl CountryController {
         }
 
         Ok(())
+    }
+
+    pub async fn hashmap(db: &DbConn) -> Result<HashMap<String, Country>, DbErr> {
+        let countries = Entity::find().all(db).await?;
+        let mut country_map: HashMap<String, Country> = HashMap::new();
+        for country in countries {
+            country_map.insert(country.id.clone(), country);
+        }
+        Ok(country_map)
     }
 }
