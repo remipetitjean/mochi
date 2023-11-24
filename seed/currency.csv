@@ -50,6 +50,8 @@ EUR,Euro,€
 FJD,Fiji Dollar,$
 FKP,Falkland Islands Pound,£
 GBP,Pound Sterling,£
+GBp,Pence Sterling,p
+GBX,Pence Sterling,p
 GEL,Lari,
 GHS,Cedi,
 GIP,Gibraltar Pound,£
@@ -63,6 +65,7 @@ HRK,Croatian Kuna,kn
 HTG,Gourde,
 HUF,Forint,Ft
 IDR,Rupiah,Rp
+ILA,Infinite Launch,
 ILS,New Israeli Sheqel,₪
 INR,Indian Rupee,₹
 IQD,Iraqi Dinar,
@@ -171,6 +174,7 @@ XPF,CFP Franc,
 XPT,Platinum,
 XTS,Codes specifically reserved for testing purposes,
 YER,Yemeni Rial,﷼
+ZAc,South African Cent,c
 ZAR,Rand,R
 ZMK,Zambian Kwacha,
 ZWL,Zimbabwe Dollar,

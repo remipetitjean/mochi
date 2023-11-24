@@ -14,7 +14,16 @@ impl StockExchangeController {
             .collect();
 
         if new_active_instances.len() > 0 {
-            Entity::insert_many(new_active_instances).exec(db).await?;
+            let new_active_instances_chunked: Vec<Vec<ActiveStockExchange>> = new_active_instances
+                .chunks(10_000)
+                .map(|x| x.to_vec())
+                .collect();
+
+            for chunk in new_active_instances_chunked {
+                Entity::insert_many(chunk).exec(db).await?;
+            }
+
+            //Entity::insert_many(new_active_instances).exec(db).await?;
         }
 
         Ok(())

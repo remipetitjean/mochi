@@ -20,7 +20,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // stock
     update_exchange(db.clone()).await?;
-    //update_stock(db).await?;
+    update_stock(db).await?;
 
     Ok(())
 }

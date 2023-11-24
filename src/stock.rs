@@ -95,13 +95,13 @@ pub async fn update_stock(db: DatabaseConnection) -> Result<(), Box<dyn std::err
                 },
             );
         }
-        let stock_exchanges: Vec<NewStockExchange> = stock_exchange_map
-            .values()
-            .into_iter()
-            .map(|x| x.to_owned())
-            .collect();
-        StockExchangeController::insert_many(&db, stock_exchanges).await?;
     }
+    let stock_exchanges: Vec<NewStockExchange> = stock_exchange_map
+        .values()
+        .into_iter()
+        .map(|x| x.to_owned())
+        .collect();
+    StockExchangeController::insert_many(&db, stock_exchanges).await?;
 
     Ok(())
 }
