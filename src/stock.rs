@@ -1,6 +1,6 @@
 use model::prelude::{
-    CurrencyController, DatabaseConnection, Exchange, ExchangeController, NewStockExchange, Stock,
-    StockController, StockExchangeController, StockType,
+    DatabaseConnection, Exchange, ExchangeController, NewStockExchange, Stock, StockController,
+    StockExchangeController, StockType,
 };
 use serde::{Deserialize, Deserializer};
 use std::collections::HashMap;
