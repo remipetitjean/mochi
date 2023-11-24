@@ -15,6 +15,7 @@ impl StockExchangeController {
                 .iter()
                 .map(|x| (x.stock_id.to_string(), x.exchange_id.to_string())),
         );
+
         let instances: Vec<NewStockExchange> = instances
             .into_iter()
             .filter(|instance| {
@@ -39,12 +40,8 @@ impl StockExchangeController {
             .collect();
 
         for chunk in new_active_instances_chunked {
-            println!("About to insert {} stock exchanges", chunk.len());
             Entity::insert_many(chunk).exec(db).await?;
         }
-
-        //Entity::insert_many(new_active_instances).exec(db).await?;
-        //}
 
         Ok(())
     }
