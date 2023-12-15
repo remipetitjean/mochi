@@ -1,25 +1,25 @@
-id,region,sub_region,intermediate_region
-1,Africa,Northern Africa,
-2,Africa,Sub-Saharan Africa,Eastern Africa
-3,Africa,Sub-Saharan Africa,Middle Africa
-4,Africa,Sub-Saharan Africa,Southern Africa
-5,Africa,Sub-Saharan Africa,Western Africa
-6,Americas,Latin America and the Caribbean,Caribbean
-7,Americas,Latin America and the Caribbean,Central America
-8,Americas,Latin America and the Caribbean,South America
-9,Americas,Northern America,
-10,Antartica,,
-11,Asia,Central Asia,
-12,Asia,Eastern Asia,
-13,Asia,South-eastern Asia,
-14,Asia,Southern Asia,
-15,Asia,Western Asia,
-16,Europe,Eastern Europe,
-17,Europe,Northern Europe,Channel Islands
-18,Europe,Northern Europe,
-19,Europe,Southern Europe,
-20,Europe,Western Europe,
-21,Oceania,Australia and New Zealand,
-22,Oceania,Melanesia,
-23,Oceania,Micronesia,
-24,Oceania,Polynesia,
+code,region,sub_region,intermediate_region
+AF/NA,Africa,Northern Africa,
+AF/EA,Africa,Sub-Saharan Africa,Eastern Africa
+AF/MA,Africa,Sub-Saharan Africa,Middle Africa
+AF/SA,Africa,Sub-Saharan Africa,Southern Africa
+AF/WA,Africa,Sub-Saharan Africa,Western Africa
+AM/CB,Americas,Latin America and the Caribbean,Caribbean
+AM/CA,Americas,Latin America and the Caribbean,Central America
+AM/SA,Americas,Latin America and the Caribbean,South America
+AM/NA,Americas,Northern America,
+AN,Antartica,,
+AS/CA,Asia,Central Asia,
+AS/EA,Asia,Eastern Asia,
+AS/SE,Asia,South-eastern Asia,
+AS/SA,Asia,Southern Asia,
+AS/WA,Asia,Western Asia,
+EU/EE,Europe,Eastern Europe,
+EU/CI,Europe,Northern Europe,Channel Islands
+EU/NE,Europe,Northern Europe,
+EU/SE,Europe,Southern Europe,
+EU/WE,Europe,Western Europe,
+OC/AU,Oceania,Australia and New Zealand,
+OC/ME,Oceania,Melanesia,
+OC/MI,Oceania,Micronesia,
+OC/PO,Oceania,Polynesia,
