@@ -936,7 +936,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "mochi-db-update"
+name = "mochi"
 version = "0.1.0"
 dependencies = [
  "csv",
