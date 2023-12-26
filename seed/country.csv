@@ -1,253 +1,253 @@
-id,alpha3,name,region_id
-AD,AND,Andorra,19
-AE,ARE,United Arab Emirates,15
-AF,AFG,Afghanistan,14
-AG,ATG,Antigua and Barbuda,6
-AI,AIA,Anguilla,6
-AL,ALB,Albania,19
-AM,ARM,Armenia,15
-AN,ANT,Netherlands Antilles,6
-AO,AGO,Angola,3
-AQ,ATA,Antarctica,10
-AR,ARG,Argentina,8
-AS,ASM,American Samoa,24
-AT,AUT,Austria,20
-AU,AUS,Australia,21
-AW,ABW,Aruba,6
-AX,ALA,Åland Islands,18
-AZ,AZE,Azerbaijan,15
-BA,BIH,Bosnia and Herzegovina,19
-BB,BRB,Barbados,6
-BD,BGD,Bangladesh,14
-BE,BEL,Belgium,20
-BF,BFA,Burkina Faso,5
-BG,BGR,Bulgaria,16
-BH,BHR,Bahrain,15
-BI,BDI,Burundi,2
-BJ,BEN,Benin,5
-BL,BLM,Saint Barthélemy,6
-BM,BMU,Bermuda,9
-BN,BRN,Brunei Darussalam,13
-BO,BOL,Bolivia (Plurinational State of),8
-BQ,BES,"Bonaire, Sint Eustatius and Saba",6
-BR,BRA,Brazil,8
-BS,BHS,Bahamas,6
-BT,BTN,Bhutan,14
-BV,BVT,Bouvet Island,8
-BW,BWA,Botswana,4
-BY,BLR,Belarus,16
-BZ,BLZ,Belize,7
-CA,CAN,Canada,9
-CC,CCK,Cocos (Keeling) Islands,21
-CD,COD,"Congo, Democratic Republic of the",3
-CF,CAF,Central African Republic,3
-CG,COG,Congo,3
-CH,CHE,Switzerland,20
-CI,CIV,Côte d'Ivoire,5
-CK,COK,Cook Islands,24
-CL,CHL,Chile,8
-CM,CMR,Cameroon,3
-CN,CHN,China,12
-CO,COL,Colombia,8
-CR,CRI,Costa Rica,7
-CU,CUB,Cuba,6
-CV,CPV,Cabo Verde,5
-CW,CUW,Curaçao,6
-CX,CXR,Christmas Island,21
-CY,CYP,Cyprus,15
-CZ,CZE,Czechia,16
-DE,DEU,Germany,20
-DJ,DJI,Djibouti,2
-DK,DNK,Denmark,18
-DM,DMA,Dominica,6
-DO,DOM,Dominican Republic,6
-DZ,DZA,Algeria,1
-EC,ECU,Ecuador,8
-EE,EST,Estonia,18
-EG,EGY,Egypt,1
-EH,ESH,Western Sahara,1
-ER,ERI,Eritrea,2
-ES,ESP,Spain,19
-ET,ETH,Ethiopia,2
-FI,FIN,Finland,18
-FJ,FJI,Fiji,22
-FK,FLK,Falkland Islands (Malvinas),8
-FM,FSM,Micronesia (Federated States of),23
-FO,FRO,Faroe Islands,18
-FR,FRA,France,20
-GA,GAB,Gabon,3
-GB,GBR,United Kingdom of Great Britain and Northern Ireland,18
-GD,GRD,Grenada,6
-GE,GEO,Georgia,15
-GF,GUF,French Guiana,8
-GG,GGY,Guernsey,17
-GH,GHA,Ghana,5
-GI,GIB,Gibraltar,19
-GL,GRL,Greenland,9
-GM,GMB,Gambia,5
-GN,GIN,Guinea,5
-GP,GLP,Guadeloupe,6
-GQ,GNQ,Equatorial Guinea,3
-GR,GRC,Greece,19
-GS,SGS,South Georgia and the South Sandwich Islands,8
-GT,GTM,Guatemala,7
-GU,GUM,Guam,23
-GW,GNB,Guinea-Bissau,5
-GY,GUY,Guyana,8
-GZ,,Gaza Strip,15
-HK,HKG,Hong Kong,12
-HM,HMD,Heard Island and McDonald Islands,21
-HN,HND,Honduras,7
-HR,HRV,Croatia,19
-HT,HTI,Haiti,6
-HU,HUN,Hungary,16
-ID,IDN,Indonesia,13
-IE,IRL,Ireland,18
-IL,ISR,Israel,15
-IM,IMN,Isle of Man,18
-IN,IND,India,14
-IO,IOT,British Indian Ocean Territory,2
-IQ,IRQ,Iraq,15
-IR,IRN,Iran (Islamic Republic of),14
-IS,ISL,Iceland,18
-IT,ITA,Italy,19
-JE,JEY,Jersey,17
-JM,JAM,Jamaica,6
-JO,JOR,Jordan,15
-JP,JPN,Japan,12
-KE,KEN,Kenya,2
-KG,KGZ,Kyrgyzstan,11
-KH,KHM,Cambodia,13
-KI,KIR,Kiribati,23
-KM,COM,Comoros,2
-KN,KNA,Saint Kitts and Nevis,6
-KP,PRK,Korea (Democratic People's Republic of),12
-KR,KOR,"Korea, Republic of",12
-KW,KWT,Kuwait,15
-KY,CYM,Cayman Islands,6
-KZ,KAZ,Kazakhstan,11
-LA,LAO,Lao People's Democratic Republic,13
-LB,LBN,Lebanon,15
-LC,LCA,Saint Lucia,6
-LI,LIE,Liechtenstein,20
-LK,LKA,Sri Lanka,14
-LR,LBR,Liberia,5
-LS,LSO,Lesotho,4
-LT,LTU,Lithuania,18
-LU,LUX,Luxembourg,20
-LV,LVA,Latvia,18
-LY,LBY,Libya,1
-MA,MAR,Morocco,1
-MC,MCO,Monaco,20
-MD,MDA,"Moldova, Republic of",16
-ME,MNE,Montenegro,19
-MF,MAF,Saint Martin (French part),6
-MG,MDG,Madagascar,2
-MH,MHL,Marshall Islands,23
-MK,MKD,North Macedonia,19
-ML,MLI,Mali,5
-MM,MMR,Myanmar,13
-MN,MNG,Mongolia,12
-MO,MAC,Macao,12
-MP,MNP,Northern Mariana Islands,23
-MQ,MTQ,Martinique,6
-MR,MRT,Mauritania,5
-MS,MSR,Montserrat,6
-MT,MLT,Malta,19
-MU,MUS,Mauritius,2
-MV,MDV,Maldives,14
-MW,MWI,Malawi,2
-MX,MEX,Mexico,7
-MY,MYS,Malaysia,13
-MZ,MOZ,Mozambique,2
-NA,NAM,Namibia,4
-NC,NCL,New Caledonia,22
-NE,NER,Niger,5
-NF,NFK,Norfolk Island,21
-NG,NGA,Nigeria,5
-NI,NIC,Nicaragua,7
-NL,NLD,Netherlands,20
-NO,NOR,Norway,18
-NP,NPL,Nepal,14
-NR,NRU,Nauru,23
-NU,NIU,Niue,24
-NZ,NZL,New Zealand,21
-OM,OMN,Oman,15
-PA,PAN,Panama,7
-PE,PER,Peru,8
-PF,PYF,French Polynesia,24
-PG,PNG,Papua New Guinea,22
-PH,PHL,Philippines,13
-PK,PAK,Pakistan,14
-PL,POL,Poland,16
-PM,SPM,Saint Pierre and Miquelon,9
-PN,PCN,Pitcairn,24
-PR,PRI,Puerto Rico,6
-PS,PSE,"Palestine, State of",15
-PT,PRT,Portugal,19
-PW,PLW,Palau,23
-PY,PRY,Paraguay,8
-QA,QAT,Qatar,15
-RE,REU,Réunion,2
-RO,ROU,Romania,16
-RS,SRB,Serbia,19
-RU,RUS,Russian Federation,16
-RW,RWA,Rwanda,2
-SA,SAU,Saudi Arabia,15
-SB,SLB,Solomon Islands,22
-SC,SYC,Seychelles,2
-SD,SDN,Sudan,1
-SE,SWE,Sweden,18
-SG,SGP,Singapore,13
-SH,SHN,"Saint Helena, Ascension and Tristan da Cunha",5
-SI,SVN,Slovenia,19
-SJ,SJM,Svalbard and Jan Mayen,18
-SK,SVK,Slovakia,16
-SL,SLE,Sierra Leone,5
-SM,SMR,San Marino,19
-SN,SEN,Senegal,5
-SO,SOM,Somalia,2
-SR,SUR,Suriname,8
-SS,SSD,South Sudan,2
-ST,STP,Sao Tome and Principe,3
-SV,SLV,El Salvador,7
-SX,SXM,Sint Maarten (Dutch part),6
-SY,SYR,Syrian Arab Republic,15
-SZ,SWZ,Eswatini,4
-TC,TCA,Turks and Caicos Islands,6
-TD,TCD,Chad,3
-TF,ATF,French Southern Territories,2
-TG,TGO,Togo,5
-TH,THA,Thailand,13
-TJ,TJK,Tajikistan,11
-TK,TKL,Tokelau,24
-TL,TLS,Timor-Leste,13
-TM,TKM,Turkmenistan,11
-TN,TUN,Tunisia,1
-TO,TON,Tonga,24
-TR,TUR,Turkey,15
-TT,TTO,Trinidad and Tobago,6
-TV,TUV,Tuvalu,24
-TW,TWN,"Taiwan, Province of China",12
-TZ,TZA,"Tanzania, United Republic of",2
-UA,UKR,Ukraine,16
-UG,UGA,Uganda,2
-UM,UMI,United States Minor Outlying Islands,23
-US,USA,United States of America,9
-UY,URY,Uruguay,8
-UZ,UZB,Uzbekistan,11
-VA,VAT,Holy See,19
-VC,VCT,Saint Vincent and the Grenadines,6
-VE,VEN,Venezuela (Bolivarian Republic of),8
-VG,VGB,Virgin Islands (British),6
-VI,VIR,Virgin Islands (U.S.),6
-VN,VNM,Viet Nam,13
-VU,VUT,Vanuatu,22
-WF,WLF,Wallis and Futuna,24
-WS,WSM,Samoa,24
-XK,,Kosovo,19
-YE,YEM,Yemen,15
-YT,MYT,Mayotte,2
-ZA,ZAF,South Africa,4
-ZM,ZMB,Zambia,2
-ZW,ZWE,Zimbabwe,2
+code,code_3,name,region_code
+AD,AND,Andorra,EU/SE
+AE,ARE,United Arab Emirates,AS/WA
+AF,AFG,Afghanistan,AS/SA
+AG,ATG,Antigua and Barbuda,AM/CB
+AI,AIA,Anguilla,AM/CB
+AL,ALB,Albania,EU/SE
+AM,ARM,Armenia,AS/WA
+AN,ANT,Netherlands Antilles,AM/CB
+AO,AGO,Angola,AF/MA
+AQ,ATA,Antarctica,AN
+AR,ARG,Argentina,AM/SA
+AS,ASM,American Samoa,OC/PO
+AT,AUT,Austria,EU/WE
+AU,AUS,Australia,OC/AU
+AW,ABW,Aruba,AM/CB
+AX,ALA,Åland Islands,EU/NE
+AZ,AZE,Azerbaijan,AS/WA
+BA,BIH,Bosnia and Herzegovina,EU/SE
+BB,BRB,Barbados,AM/CB
+BD,BGD,Bangladesh,AS/SA
+BE,BEL,Belgium,EU/WE
+BF,BFA,Burkina Faso,AF/WA
+BG,BGR,Bulgaria,EU/EE
+BH,BHR,Bahrain,AS/WA
+BI,BDI,Burundi,AF/EA
+BJ,BEN,Benin,AF/WA
+BL,BLM,Saint Barthélemy,AM/CB
+BM,BMU,Bermuda,AM/NA
+BN,BRN,Brunei Darussalam,AS/SE
+BO,BOL,Bolivia (Plurinational State of),AM/SA
+BQ,BES,"Bonaire, Sint Eustatius and Saba",AM/CB
+BR,BRA,Brazil,AM/SA
+BS,BHS,Bahamas,AM/CB
+BT,BTN,Bhutan,AS/SA
+BV,BVT,Bouvet Island,AM/SA
+BW,BWA,Botswana,AF/SA
+BY,BLR,Belarus,EU/EE
+BZ,BLZ,Belize,AM/CA
+CA,CAN,Canada,AM/NA
+CC,CCK,Cocos (Keeling) Islands,OC/AU
+CD,COD,"Congo, Democratic Republic of the",AF/MA
+CF,CAF,Central African Republic,AF/MA
+CG,COG,Congo,AF/MA
+CH,CHE,Switzerland,EU/WE
+CI,CIV,Côte d'Ivoire,AF/WA
+CK,COK,Cook Islands,OC/PO
+CL,CHL,Chile,AM/SA
+CM,CMR,Cameroon,AF/MA
+CN,CHN,China,AS/EA
+CO,COL,Colombia,AM/SA
+CR,CRI,Costa Rica,AM/CA
+CU,CUB,Cuba,AM/CB
+CV,CPV,Cabo Verde,AF/WA
+CW,CUW,Curaçao,AM/CB
+CX,CXR,Christmas Island,OC/AU
+CY,CYP,Cyprus,AS/WA
+CZ,CZE,Czechia,EU/EE
+DE,DEU,Germany,EU/WE
+DJ,DJI,Djibouti,AF/EA
+DK,DNK,Denmark,EU/NE
+DM,DMA,Dominica,AM/CB
+DO,DOM,Dominican Republic,AM/CB
+DZ,DZA,Algeria,AF/NA
+EC,ECU,Ecuador,AM/SA
+EE,EST,Estonia,EU/NE
+EG,EGY,Egypt,AF/NA
+EH,ESH,Western Sahara,AF/NA
+ER,ERI,Eritrea,AF/EA
+ES,ESP,Spain,EU/SE
+ET,ETH,Ethiopia,AF/EA
+FI,FIN,Finland,EU/NE
+FJ,FJI,Fiji,OC/ME
+FK,FLK,Falkland Islands (Malvinas),AM/SA
+FM,FSM,Micronesia (Federated States of),OC/MI
+FO,FRO,Faroe Islands,EU/NE
+FR,FRA,France,EU/WE
+GA,GAB,Gabon,AF/MA
+GB,GBR,United Kingdom of Great Britain and Northern Ireland,EU/NE
+GD,GRD,Grenada,AM/CB
+GE,GEO,Georgia,AS/WA
+GF,GUF,French Guiana,AM/SA
+GG,GGY,Guernsey,EU/CI
+GH,GHA,Ghana,AF/WA
+GI,GIB,Gibraltar,EU/SE
+GL,GRL,Greenland,AM/NA
+GM,GMB,Gambia,AF/WA
+GN,GIN,Guinea,AF/WA
+GP,GLP,Guadeloupe,AM/CB
+GQ,GNQ,Equatorial Guinea,AF/MA
+GR,GRC,Greece,EU/SE
+GS,SGS,South Georgia and the South Sandwich Islands,AM/SA
+GT,GTM,Guatemala,AM/CA
+GU,GUM,Guam,OC/MI
+GW,GNB,Guinea-Bissau,AF/WA
+GY,GUY,Guyana,AM/SA
+GZ,,Gaza Strip,AS/WA
+HK,HKG,Hong Kong,AS/EA
+HM,HMD,Heard Island and McDonald Islands,OC/AU
+HN,HND,Honduras,AM/CA
+HR,HRV,Croatia,EU/SE
+HT,HTI,Haiti,AM/CB
+HU,HUN,Hungary,EU/EE
+ID,IDN,Indonesia,AS/SE
+IE,IRL,Ireland,EU/NE
+IL,ISR,Israel,AS/WA
+IM,IMN,Isle of Man,EU/NE
+IN,IND,India,AS/SA
+IO,IOT,British Indian Ocean Territory,AF/EA
+IQ,IRQ,Iraq,AS/WA
+IR,IRN,Iran (Islamic Republic of),AS/SA
+IS,ISL,Iceland,EU/NE
+IT,ITA,Italy,EU/SE
+JE,JEY,Jersey,EU/CI
+JM,JAM,Jamaica,AM/CB
+JO,JOR,Jordan,AS/WA
+JP,JPN,Japan,AS/EA
+KE,KEN,Kenya,AF/EA
+KG,KGZ,Kyrgyzstan,AS/CA
+KH,KHM,Cambodia,AS/SE
+KI,KIR,Kiribati,OC/MI
+KM,COM,Comoros,AF/EA
+KN,KNA,Saint Kitts and Nevis,AM/CB
+KP,PRK,Korea (Democratic People's Republic of),AS/EA
+KR,KOR,"Korea, Republic of",AS/EA
+KW,KWT,Kuwait,AS/WA
+KY,CYM,Cayman Islands,AM/CB
+KZ,KAZ,Kazakhstan,AS/CA
+LA,LAO,Lao People's Democratic Republic,AS/SE
+LB,LBN,Lebanon,AS/WA
+LC,LCA,Saint Lucia,AM/CB
+LI,LIE,Liechtenstein,EU/WE
+LK,LKA,Sri Lanka,AS/SA
+LR,LBR,Liberia,AF/WA
+LS,LSO,Lesotho,AF/SA
+LT,LTU,Lithuania,EU/NE
+LU,LUX,Luxembourg,EU/WE
+LV,LVA,Latvia,EU/NE
+LY,LBY,Libya,AF/NA
+MA,MAR,Morocco,AF/NA
+MC,MCO,Monaco,EU/WE
+MD,MDA,"Moldova, Republic of",EU/EE
+ME,MNE,Montenegro,EU/SE
+MF,MAF,Saint Martin (French part),AM/CB
+MG,MDG,Madagascar,AF/EA
+MH,MHL,Marshall Islands,OC/MI
+MK,MKD,North Macedonia,EU/SE
+ML,MLI,Mali,AF/WA
+MM,MMR,Myanmar,AS/SE
+MN,MNG,Mongolia,AS/EA
+MO,MAC,Macao,AS/EA
+MP,MNP,Northern Mariana Islands,OC/MI
+MQ,MTQ,Martinique,AM/CB
+MR,MRT,Mauritania,AF/WA
+MS,MSR,Montserrat,AM/CB
+MT,MLT,Malta,EU/SE
+MU,MUS,Mauritius,AF/EA
+MV,MDV,Maldives,AS/SA
+MW,MWI,Malawi,AF/EA
+MX,MEX,Mexico,AM/CA
+MY,MYS,Malaysia,AS/SE
+MZ,MOZ,Mozambique,AF/EA
+NA,NAM,Namibia,AF/SA
+NC,NCL,New Caledonia,OC/ME
+NE,NER,Niger,AF/WA
+NF,NFK,Norfolk Island,OC/AU
+NG,NGA,Nigeria,AF/WA
+NI,NIC,Nicaragua,AM/CA
+NL,NLD,Netherlands,EU/WE
+NO,NOR,Norway,EU/NE
+NP,NPL,Nepal,AS/SA
+NR,NRU,Nauru,OC/MI
+NU,NIU,Niue,OC/PO
+NZ,NZL,New Zealand,OC/AU
+OM,OMN,Oman,AS/WA
+PA,PAN,Panama,AM/CA
+PE,PER,Peru,AM/SA
+PF,PYF,French Polynesia,OC/PO
+PG,PNG,Papua New Guinea,OC/ME
+PH,PHL,Philippines,AS/SE
+PK,PAK,Pakistan,AS/SA
+PL,POL,Poland,EU/EE
+PM,SPM,Saint Pierre and Miquelon,AM/NA
+PN,PCN,Pitcairn,OC/PO
+PR,PRI,Puerto Rico,AM/CB
+PS,PSE,"Palestine, State of",AS/WA
+PT,PRT,Portugal,EU/SE
+PW,PLW,Palau,OC/MI
+PY,PRY,Paraguay,AM/SA
+QA,QAT,Qatar,AS/WA
+RE,REU,Réunion,AF/EA
+RO,ROU,Romania,EU/EE
+RS,SRB,Serbia,EU/SE
+RU,RUS,Russian Federation,EU/EE
+RW,RWA,Rwanda,AF/EA
+SA,SAU,Saudi Arabia,AS/WA
+SB,SLB,Solomon Islands,OC/ME
+SC,SYC,Seychelles,AF/EA
+SD,SDN,Sudan,AF/NA
+SE,SWE,Sweden,EU/NE
+SG,SGP,Singapore,AS/SE
+SH,SHN,"Saint Helena, Ascension and Tristan da Cunha",AF/WA
+SI,SVN,Slovenia,EU/SE
+SJ,SJM,Svalbard and Jan Mayen,EU/NE
+SK,SVK,Slovakia,EU/EE
+SL,SLE,Sierra Leone,AF/WA
+SM,SMR,San Marino,EU/SE
+SN,SEN,Senegal,AF/WA
+SO,SOM,Somalia,AF/EA
+SR,SUR,Suriname,AM/SA
+SS,SSD,South Sudan,AF/EA
+ST,STP,Sao Tome and Principe,AF/MA
+SV,SLV,El Salvador,AM/CA
+SX,SXM,Sint Maarten (Dutch part),AM/CB
+SY,SYR,Syrian Arab Republic,AS/WA
+SZ,SWZ,Eswatini,AF/SA
+TC,TCA,Turks and Caicos Islands,AM/CB
+TD,TCD,Chad,AF/MA
+TF,ATF,French Southern Territories,AF/EA
+TG,TGO,Togo,AF/WA
+TH,THA,Thailand,AS/SE
+TJ,TJK,Tajikistan,AS/CA
+TK,TKL,Tokelau,OC/PO
+TL,TLS,Timor-Leste,AS/SE
+TM,TKM,Turkmenistan,AS/CA
+TN,TUN,Tunisia,AF/NA
+TO,TON,Tonga,OC/PO
+TR,TUR,Turkey,AS/WA
+TT,TTO,Trinidad and Tobago,AM/CB
+TV,TUV,Tuvalu,OC/PO
+TW,TWN,"Taiwan, Province of China",AS/EA
+TZ,TZA,"Tanzania, United Republic of",AF/EA
+UA,UKR,Ukraine,EU/EE
+UG,UGA,Uganda,AF/EA
+UM,UMI,United States Minor Outlying Islands,OC/MI
+US,USA,United States of America,AM/NA
+UY,URY,Uruguay,AM/SA
+UZ,UZB,Uzbekistan,AS/CA
+VA,VAT,Holy See,EU/SE
+VC,VCT,Saint Vincent and the Grenadines,AM/CB
+VE,VEN,Venezuela (Bolivarian Republic of),AM/SA
+VG,VGB,Virgin Islands (British),AM/CB
+VI,VIR,Virgin Islands (U.S.),AM/CB
+VN,VNM,Viet Nam,AS/SE
+VU,VUT,Vanuatu,OC/ME
+WF,WLF,Wallis and Futuna,OC/PO
+WS,WSM,Samoa,OC/PO
+XK,,Kosovo,EU/SE
+YE,YEM,Yemen,AS/WA
+YT,MYT,Mayotte,AF/EA
+ZA,ZAF,South Africa,AF/SA
+ZM,ZMB,Zambia,AF/EA
+ZW,ZWE,Zimbabwe,AF/EA
