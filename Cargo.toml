@@ -10,6 +10,9 @@ members = [ "model" ]
 name = "update_regions"
 path = "src/update_regions.rs"
 
+[[bin]]
+name = "update_countries"
+path = "src/update_countries.rs"
 
 [dependencies]
 csv = "^1.3"

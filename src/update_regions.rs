@@ -25,7 +25,9 @@ async fn main() {
     }
 
     // Update existing regions
-    Region::insert_many(pool.to_owned(), new_regions).await.unwrap();
+    Region::insert_many(pool.to_owned(), new_regions)
+        .await
+        .unwrap();
     Region::update_many(pool, existing_regions).await.unwrap();
 }
 
