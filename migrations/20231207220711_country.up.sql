@@ -1,4 +1,3 @@
--- Add migration script here
 CREATE TABLE region (
     code varchar(5) primary key not null,
     region varchar(9) not null,

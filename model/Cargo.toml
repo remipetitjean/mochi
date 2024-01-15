@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 serde = "^1"
 sqlx = { version = "^0.7", features = [ "postgres" ] }
+strum_macros = "^0.25"
