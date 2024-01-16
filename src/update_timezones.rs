@@ -8,6 +8,7 @@ mod db;
 #[tokio::main]
 async fn main() {
     let input_countries = read_input_countries();
+
     let pool = db::get_connection_pool().await.unwrap();
 
     // retrieve existing countries

@@ -13,7 +13,7 @@ pub enum TimezoneType {
 #[derive(Clone, Debug, Deserialize)]
 pub struct Timezone {
     pub code: String,
-    pub r#type: TimezoneType,
+    pub tz_type: TimezoneType,
     pub utc_offset: String,
     pub utc_dst_offset: String,
     pub tz_abbreviation: String,
@@ -34,7 +34,7 @@ impl Timezone {
             r#"
             SELECT
                 code,
-                type AS "type: _",
+                tz_type as "tz_type: TimezoneType",
                 utc_offset,
                 utc_dst_offset,
                 tz_abbreviation,
@@ -58,7 +58,7 @@ impl Timezone {
             r#"
             INSERT INTO timezone (
                 code,
-                type AS "type: _",
+                tz_type,
                 utc_offset,
                 utc_dst_offset,
                 tz_abbreviation,
@@ -69,7 +69,7 @@ impl Timezone {
         );
         query_builder.push_values(countries, |mut b, timezone| {
             b.push_bind(timezone.code)
-                .push_bind(timezone.r#type)
+                .push_bind(timezone.tz_type)
                 .push_bind(timezone.utc_offset)
                 .push_bind(timezone.utc_dst_offset)
                 .push_bind(timezone.tz_abbreviation)
@@ -91,12 +91,12 @@ impl Timezone {
 
         let mut updated = false;
 
-        if timezone.r#type != updated_timezone.r#type {
+        if timezone.tz_type != updated_timezone.tz_type {
             if updated {
                 query_builder.push(", ");
             }
             query_builder.push("type = ");
-            query_builder.push_bind(updated_timezone.r#type);
+            query_builder.push_bind(updated_timezone.tz_type);
             query_builder.push(" ");
             updated = true;
         }
