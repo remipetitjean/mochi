@@ -1,6 +1,6 @@
 CREATE TABLE exchange (
-    code char(4) primary key not null,
+    code varchar(5) primary key not null,
     name varchar not null,
-    country_code char(2) REFERENCES country (code) not null,
-    timezone varchar not null
+    country_code char(2) not null REFERENCES country (code) not null,
+    timezone_code varchar not null REFERENCES timezone (code) not null
 );
