@@ -1,4 +1,4 @@
-code,code_3,name,region_code
+code,code_3,name,region
 AD,AND,Andorra,EU/SE
 AE,ARE,United Arab Emirates,AS/WA
 AF,AFG,Afghanistan,AS/SA
@@ -228,7 +228,7 @@ TO,TON,Tonga,OC/PO
 TR,TUR,Turkey,AS/WA
 TT,TTO,Trinidad and Tobago,AM/CB
 TV,TUV,Tuvalu,OC/PO
-TW,TWN,"Taiwan, Province of China",AS/EA
+TW,TWN,"Taiwan, Republic of China",AS/EA
 TZ,TZA,"Tanzania, United Republic of",AF/EA
 UA,UKR,Ukraine,EU/EE
 UG,UGA,Uganda,AF/EA

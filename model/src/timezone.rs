@@ -7,7 +7,7 @@ use std::fmt;
 #[sqlx(type_name = "timezonetype")]
 pub enum TimezoneType {
     Canonical,
-    Type,
+    Link,
 }
 
 #[derive(Clone, Debug, Deserialize)]

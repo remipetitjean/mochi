@@ -9,5 +9,5 @@ CREATE TABLE country (
     code char(2) primary key not null,
     code_3 char(3) not null,
     name varchar not null,
-    region_code varchar(5) REFERENCES region (code) not null
+    region varchar(5) REFERENCES region (code) not null
 );

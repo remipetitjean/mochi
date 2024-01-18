@@ -7,8 +7,8 @@ use std::fmt;
 pub struct Exchange {
     pub code: String,
     pub name: String,
-    pub country_code: String,
-    pub timezone_code: String,
+    pub country: String,
+    pub timezone: String,
 }
 
 impl fmt::Display for Exchange {
@@ -21,7 +21,7 @@ impl Exchange {
     pub async fn select(pool: PgPool) -> Result<Vec<Exchange>, sqlx::Error> {
         let exchanges = sqlx::query_as!(
             Exchange,
-            "SELECT code, name, country_code, timezone_code FROM exchange"
+            "SELECT code, name, country, timezone FROM exchange"
         )
         .fetch_all(&pool)
         .await?;
@@ -35,12 +35,12 @@ impl Exchange {
         }
 
         let mut query_builder: QueryBuilder<Postgres> =
-            QueryBuilder::new("INSERT INTO exchange (code, name, country_code, timezone_code) ");
+            QueryBuilder::new("INSERT INTO exchange (code, name, country, timezone) ");
         query_builder.push_values(exchanges, |mut b, exchange| {
             b.push_bind(exchange.code)
                 .push_bind(exchange.name)
-                .push_bind(exchange.country_code)
-                .push_bind(exchange.timezone_code);
+                .push_bind(exchange.country)
+                .push_bind(exchange.timezone);
         });
 
         query_builder.build().execute(&pool).await?;
@@ -68,24 +68,24 @@ impl Exchange {
             updated = true;
         }
 
-        if exchange.country_code != updated_exchange.country_code {
+        if exchange.country != updated_exchange.country {
             if updated {
                 query_builder.push(", ");
             }
             query_builder
-                .push("country_code = ")
-                .push_bind(updated_exchange.country_code)
+                .push("country = ")
+                .push_bind(updated_exchange.country)
                 .push(" ");
             updated = true;
         }
 
-        if exchange.timezone_code != updated_exchange.timezone_code {
+        if exchange.timezone != updated_exchange.timezone {
             if updated {
                 query_builder.push(", ");
             }
             query_builder
-                .push("timezone_code = ")
-                .push_bind(updated_exchange.timezone_code)
+                .push("timezone = ")
+                .push_bind(updated_exchange.timezone)
                 .push(" ");
             updated = true;
         }

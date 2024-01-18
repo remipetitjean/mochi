@@ -1,3 +1,4 @@
+use model::country::Country;
 use model::exchange::Exchange;
 use serde::Deserialize;
 use sqlx::postgres::PgPool;
@@ -12,37 +13,37 @@ struct ApiExchange {
 
 #[tokio::main]
 async fn main() {
-    let input_exchanges = read_input_exchanges().await;
-    println!("exchanges = {:?}", input_exchanges);
+    let pool = db::get_connection_pool().await.unwrap();
 
-    //let pool = db::get_connection_pool().await.unwrap();
+    let input_exchanges = read_input_exchanges(pool.to_owned()).await;
 
-    //// retrieve existing exchanges
-    //let exchange_mapping = get_exchange_mapping(pool.to_owned()).await.unwrap();
+    // retrieve existing exchanges
+    let exchange_mapping = get_exchange_mapping(pool.to_owned()).await.unwrap();
 
-    //// split into existing and new exchanges
-    //let size = input_exchanges.len();
-    //let mut existing_exchanges = Vec::<(Exchange, Exchange)>::with_capacity(size);
-    //let mut new_exchanges = Vec::<Exchange>::with_capacity(size);
-    //for input_exchange in input_exchanges {
-    //    match exchange_mapping.get(&input_exchange.code) {
-    //        Some(existing_exchange) => {
-    //            existing_exchanges.push((existing_exchange.clone(), input_exchange))
-    //        }
-    //        None => new_exchanges.push(input_exchange),
-    //    };
-    //}
+    // split into existing and new exchanges
+    let size = input_exchanges.len();
+    let mut existing_exchanges = Vec::<(Exchange, Exchange)>::with_capacity(size);
+    let mut new_exchanges = Vec::<Exchange>::with_capacity(size);
+    for input_exchange in input_exchanges {
+        match exchange_mapping.get(&input_exchange.code) {
+            Some(existing_exchange) => {
+                existing_exchanges.push((existing_exchange.clone(), input_exchange))
+            }
+            None => new_exchanges.push(input_exchange),
+        };
+    }
 
-    //// Update existing exchanges
-    //Exchange::insert_many(pool.to_owned(), new_exchanges)
-    //    .await
-    //    .unwrap();
-    //Exchange::update_many(pool, existing_exchanges)
-    //    .await
-    //    .unwrap();
+    // Update existing exchanges
+    Exchange::insert_many(pool.to_owned(), new_exchanges)
+        .await
+        .unwrap();
+    Exchange::update_many(pool, existing_exchanges)
+        .await
+        .unwrap();
 }
 
-async fn read_input_exchanges() -> Vec<Exchange> {
+async fn read_input_exchanges(pool: PgPool) -> Vec<Exchange> {
+    // exchanges
     let url = "https://api.twelvedata.com/exchanges";
     let response = reqwest::get(url).await.unwrap();
 
@@ -54,17 +55,21 @@ async fn read_input_exchanges() -> Vec<Exchange> {
         .json::<ApiExchange>()
         .await
         .expect("Cannot deserialize to Vec<Exchange>");
-    api_exchange.data
+    let mut exchanges = api_exchange.data;
 
-    //let mut reader = Reader::from_path("seed/exchange.csv").unwrap();
-    //let iter = reader.deserialize();
-    //iter.into_iter().flatten().collect()
-    //vec![Exchange {
-    //    code: "XX".to_string(),
-    //    name: "YY".to_string(),
-    //    country_code: "US".to_string(),
-    //    timezone_code: "Europe/Paris".to_string(),
-    //}]
+    // country map
+    let country_map = Country::to_hash_map(pool)
+        .await
+        .expect("Must get country map");
+
+    // update country to country code
+    for exchange in exchanges.iter_mut() {
+        let country = &exchange.country;
+        let country_code = &country_map[country];
+        exchange.country = country_code.code.clone();
+    }
+
+    exchanges
 }
 
 async fn get_exchange_mapping(pool: PgPool) -> Result<HashMap<String, Exchange>, sqlx::Error> {
