@@ -113,7 +113,7 @@ impl Country {
 }
 
 impl Country {
-    pub async fn to_hash_map(pool: PgPool) -> Result<HashMap<String, Country>, sqlx::Error> {
+    pub async fn to_name_hash_map(pool: PgPool) -> Result<HashMap<String, Country>, sqlx::Error> {
         let countries = Country::select(pool).await?;
 
         let mut hash_map: HashMap<String, Country> = HashMap::new();
@@ -218,6 +218,17 @@ impl Country {
                 hash_map.insert("Vietnam".to_string(), country.clone());
             }
             None => {}
+        }
+
+        Ok(hash_map)
+    }
+
+    pub async fn to_code_hash_map(pool: PgPool) -> Result<HashMap<String, Country>, sqlx::Error> {
+        let countries = Country::select(pool).await?;
+
+        let mut hash_map: HashMap<String, Country> = HashMap::new();
+        for country in countries {
+            hash_map.insert(country.code.clone(), country);
         }
 
         Ok(hash_map)

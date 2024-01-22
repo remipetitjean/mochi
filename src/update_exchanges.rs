@@ -58,14 +58,14 @@ async fn read_input_exchanges(pool: PgPool) -> Vec<Exchange> {
     let mut exchanges = api_exchange.data;
 
     // country map
-    let country_map = Country::to_hash_map(pool)
+    let country_name_map = Country::to_name_hash_map(pool)
         .await
         .expect("Must get country map");
 
     // update country to country code
     for exchange in exchanges.iter_mut() {
         let country = &exchange.country;
-        let country_code = &country_map[country];
+        let country_code = &country_name_map[country];
         exchange.country = country_code.code.clone();
     }
 

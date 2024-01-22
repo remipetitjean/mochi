@@ -26,6 +26,10 @@ path = "src/update_timezones.rs"
 name = "update_exchanges"
 path = "src/update_exchanges.rs"
 
+[[bin]]
+name = "update_stocks"
+path = "src/update_stocks.rs"
+
 [dependencies]
 csv = "^1.3"
 model = { path = "model" }

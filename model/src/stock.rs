@@ -45,8 +45,10 @@ pub struct Stock {
     pub symbol: String,
     pub name: String,
     pub currency: String,
+    #[serde(rename(deserialize = "mic_code"))]
     pub exchange: String,
     pub country: String,
+    #[serde(rename(deserialize = "type"))]
     pub stock_type: StockType,
 }
 
