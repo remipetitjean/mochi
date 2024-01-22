@@ -65,7 +65,7 @@ impl Timezone {
                 tz_dst_abbreviation,
                 is_active
             )
-         "#,
+            "#,
         );
         query_builder.push_values(countries, |mut b, timezone| {
             b.push_bind(timezone.code)
