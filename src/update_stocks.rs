@@ -6,18 +6,6 @@ use std::collections::HashMap;
 
 mod db;
 
-#[derive(Clone, Debug, Deserialize)]
-pub struct Stockx {
-    pub symbol: String,
-    pub name: String,
-    pub currency: String,
-    #[serde(rename(deserialize = "mic_code"))]
-    pub exchange: String,
-    pub country: String,
-    #[serde(rename(deserialize = "type"))]
-    pub stock_type: String,
-}
-
 #[derive(Deserialize)]
 struct ApiStock {
     data: Vec<Stock>,
@@ -28,7 +16,6 @@ async fn main() {
     let pool = db::get_connection_pool().await.unwrap();
 
     let input_stocks = read_input_stocks(pool.to_owned()).await;
-    println!("{:?}", input_stocks);
 
     // retrieve existing stocks
     let stock_mapping = get_stock_mapping(pool.to_owned()).await.unwrap();
@@ -91,7 +78,18 @@ async fn read_input_stocks(pool: PgPool) -> Vec<Stock> {
         stock.country = country_code;
     }
 
-    stocks
+    let mut unique_stock_map: HashMap<String, Stock> = HashMap::new();
+    for stock in stocks {
+        let stock_symbol = &stock.symbol;
+        if !unique_stock_map.contains_key(stock_symbol) {
+            unique_stock_map.insert(stock_symbol.to_string(), stock);
+        }
+    }
+
+    let mut unique_stocks: Vec<Stock> = unique_stock_map.into_values().collect();
+    unique_stocks.sort_by(|a, b| a.symbol.partial_cmp(&b.symbol).unwrap());
+
+    unique_stocks
 }
 
 async fn get_stock_mapping(pool: PgPool) -> Result<HashMap<String, Stock>, sqlx::Error> {

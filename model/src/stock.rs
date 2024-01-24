@@ -7,36 +7,52 @@ use std::fmt;
 #[sqlx(type_name = "stocktype")]
 pub enum StockType {
     #[serde(rename = "American Depositary Receipt")]
+    #[sqlx(rename = "American Depositary Receipt")]
     AmericanDepositaryReceipt,
     #[serde(rename = "Closed-end Fund")]
+    #[sqlx(rename = "Closed-end Fund")]
     ClosedEndFund,
     #[serde(rename = "Common Stock")]
+    #[sqlx(rename = "Common Stock")]
     CommonStock,
     #[serde(rename = "Depositary Receipt")]
+    #[sqlx(rename = "Depositary Receipt")]
     DepositaryReceipt,
     #[serde(rename = "ETF")]
+    #[sqlx(rename = "ETF")]
     ETF,
     #[serde(rename = "Exchange-Traded Note")]
+    #[sqlx(rename = "Exchange-Traded Note")]
     ExchangeTradedNote,
     #[serde(rename = "Global Depositary Receipt")]
+    #[sqlx(rename = "Global Depositary Receipt")]
     GlobalDepositaryReceipt,
     #[serde(rename = "Limited Partnership")]
+    #[sqlx(rename = "Limited Partnership")]
     LimitedPartnership,
     #[serde(rename = "Mutual Fund")]
+    #[sqlx(rename = "Mutual Fund")]
     MutualFund,
     #[serde(rename = "Preferred Stock")]
+    #[sqlx(rename = "Preferred Stock")]
     PreferredStock,
     #[serde(rename = "REIT")]
+    #[sqlx(rename = "REIT")]
     REIT,
     #[serde(rename = "Right")]
+    #[sqlx(rename = "Right")]
     Right,
     #[serde(rename = "Structured Product")]
+    #[sqlx(rename = "Structured Product")]
     StructuredProduct,
     #[serde(rename = "Trust")]
+    #[sqlx(rename = "Trust")]
     Trust,
     #[serde(rename = "Unit")]
+    #[sqlx(rename = "Unit")]
     Unit,
     #[serde(rename = "Warrant")]
+    #[sqlx(rename = "Warrant")]
     Warrant,
 }
 
@@ -44,9 +60,6 @@ pub enum StockType {
 pub struct Stock {
     pub symbol: String,
     pub name: String,
-    pub currency: String,
-    #[serde(rename(deserialize = "mic_code"))]
-    pub exchange: String,
     pub country: String,
     #[serde(rename(deserialize = "type"))]
     pub stock_type: StockType,
@@ -66,8 +79,6 @@ impl Stock {
             SELECT
                 symbol,
                 name,
-                currency,
-                exchange,
                 country,
                 stock_type as "stock_type: StockType"
             FROM stock
@@ -84,28 +95,28 @@ impl Stock {
             return Ok(());
         }
 
-        let mut query_builder: QueryBuilder<Postgres> = QueryBuilder::new(
-            r#"
-            INSERT INTO stock (
-                symbol,
-                name,
-                currency,
-                exchange,
-                country,
-                stock_type
-            ) 
-            "#,
-        );
-        query_builder.push_values(stocks, |mut b, stock| {
-            b.push_bind(stock.symbol)
-                .push_bind(stock.name)
-                .push_bind(stock.currency)
-                .push_bind(stock.exchange)
-                .push_bind(stock.country)
-                .push_bind(stock.stock_type);
-        });
+        let iter = stocks.chunks(10);
 
-        query_builder.build().execute(&pool).await?;
+        for chunk in iter {
+            let mut query_builder: QueryBuilder<Postgres> = QueryBuilder::new(
+                r#"
+                INSERT INTO stock (
+                    symbol,
+                    name,
+                    country,
+                    stock_type
+                ) 
+                "#,
+            );
+            query_builder.push_values(chunk, |mut b, stock| {
+                b.push_bind(&stock.symbol)
+                    .push_bind(&stock.name)
+                    .push_bind(&stock.country)
+                    .push_bind(&stock.stock_type);
+            });
+
+            query_builder.build().execute(&pool).await?;
+        }
 
         Ok(())
     }
@@ -126,28 +137,6 @@ impl Stock {
             query_builder
                 .push("name = ")
                 .push_bind(updated_stock.name)
-                .push(" ");
-            updated = true;
-        }
-
-        if stock.currency != updated_stock.currency {
-            if updated {
-                query_builder.push(", ");
-            }
-            query_builder
-                .push("currency = ")
-                .push_bind(updated_stock.currency)
-                .push(" ");
-            updated = true;
-        }
-
-        if stock.exchange != updated_stock.exchange {
-            if updated {
-                query_builder.push(", ");
-            }
-            query_builder
-                .push("exchange = ")
-                .push_bind(updated_stock.exchange)
                 .push(" ");
             updated = true;
         }
