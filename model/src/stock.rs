@@ -95,7 +95,7 @@ impl Stock {
             return Ok(());
         }
 
-        let iter = stocks.chunks(10);
+        let iter = stocks.chunks(1000);
 
         for chunk in iter {
             let mut query_builder: QueryBuilder<Postgres> = QueryBuilder::new(

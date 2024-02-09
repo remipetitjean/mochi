@@ -3,4 +3,5 @@ pub mod currency;
 pub mod exchange;
 pub mod region;
 pub mod stock;
+pub mod stock_price;
 pub mod timezone;
