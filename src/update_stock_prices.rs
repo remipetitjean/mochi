@@ -1,12 +1,14 @@
+mod db;
+mod td_api;
+
 use chrono::naive::{Days, NaiveDate};
 use chrono::Utc;
 use model::stock::Stock;
 use model::stock_price::StockPrice;
 use serde::Deserialize;
 use sqlx::postgres::PgPool;
+use td_api::{json_from_api, ApiError};
 use thiserror::Error;
-
-mod db;
 
 #[derive(Deserialize, Debug)]
 struct InceptionDateModel {
@@ -37,27 +39,6 @@ struct StockPriceModel {
     values: Vec<StockPriceValueModel>,
 }
 
-#[derive(Deserialize, Debug)]
-struct ErrorModel {
-    code: u16,
-    message: String,
-}
-
-#[derive(Error, Debug)]
-pub enum ApiError {
-    #[error("url not found")]
-    NotFound,
-
-    #[error("resource is forbidden")]
-    Forbidden,
-
-    #[error("unhandled error: {text:}")]
-    Unhandled { text: String },
-
-    #[error("reqwest error {code:?}: {text:}")]
-    Reqwest { code: u16, text: String },
-}
-
 #[derive(Error, Debug)]
 pub enum DatabaseError {
     #[error("unhandled error: {text:}")]
@@ -73,45 +54,6 @@ pub enum LoaderError {
     DatabaseError(#[from] DatabaseError),
 }
 
-async fn json_from_api<T>(url: &str) -> Result<T, ApiError>
-where
-    T: for<'a> Deserialize<'a> + std::fmt::Debug,
-{
-    // add api key
-    let api_key = "16ebf3860688468b9cdab89899669b30";
-    let url_with_api_key = format!("{}&apikey={}", url, api_key);
-
-    // request data
-    let response = reqwest::get(url_with_api_key).await.unwrap();
-    let code = response.status();
-    let text = response.text().await.unwrap();
-    println!("GET {} -> {}", url, code);
-    if !code.is_success() {
-        return Err(ApiError::Reqwest {
-            code: code.into(),
-            text: text.to_string(),
-        });
-    }
-
-    // try deserializing into T
-    let data: Result<T, serde_json::error::Error> = serde_json::from_str(&text);
-    match data {
-        Ok(res) => return Ok(res),
-        Err(_) => (),
-    };
-
-    // try deserializing into ApiError
-    let err: Result<ErrorModel, serde_json::error::Error> = serde_json::from_str(&text);
-    match err {
-        Ok(_) => return Err(ApiError::Forbidden),
-        Err(err) => {
-            return Err(ApiError::Unhandled {
-                text: err.to_string(),
-            })
-        }
-    };
-}
-
 #[tokio::main]
 async fn main() {
     let pool = db::get_connection_pool().await.unwrap();
@@ -120,7 +62,8 @@ async fn main() {
     let stocks = Stock::select(pool.to_owned()).await.unwrap();
 
     for stock in stocks {
-        let _ = retrieve_and_store_stock_price_since_inception(pool.to_owned(), &stock.symbol).await;
+        let _ =
+            retrieve_and_store_stock_price_since_inception(pool.to_owned(), &stock.symbol).await;
     }
 
     // let start_date = NaiveDate::from_ymd(1983, 9, 23);
