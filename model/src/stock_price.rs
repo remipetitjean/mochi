@@ -7,8 +7,6 @@ use std::fmt;
 #[derive(Clone, Debug, Deserialize)]
 pub struct StockPrice {
     pub symbol: String,
-    pub exchange: String,
-    pub currency: String,
     pub eod: NaiveDate,
     pub open: f64,
     pub high: f64,
@@ -30,8 +28,6 @@ impl StockPrice {
             r#"
             SELECT
                 symbol,
-                exchange,
-                currency,
                 eod,
                 open,
                 high,
@@ -62,8 +58,6 @@ impl StockPrice {
                 r#"
                 INSERT INTO stock_price (
                     symbol,
-                    exchange,
-                    currency,
                     eod,
                     open,
                     high,
@@ -75,8 +69,6 @@ impl StockPrice {
             );
             query_builder.push_values(chunk, |mut b, stock_price| {
                 b.push_bind(&stock_price.symbol)
-                    .push_bind(&stock_price.exchange)
-                    .push_bind(&stock_price.currency)
                     .push_bind(&stock_price.eod)
                     .push_bind(&stock_price.open)
                     .push_bind(&stock_price.high)

@@ -8,33 +8,13 @@ use thiserror::Error;
 
 mod db;
 
-#[derive(Deserialize, Debug)]
-struct InceptionDateModel {
-    datetime: NaiveDate,
-}
-
-//#[derive(Deserialize, Debug)]
-//struct StockPriceMetaModel {
-//    currency: String,
-//    #[serde(rename(deserialize = "mic_code"))]
-//    exchange: String,
-//}
 
 #[derive(Deserialize, Debug)]
-struct StockPriceValueModel {
-    #[serde(rename(deserialize = "datetime"))]
-    eod: NaiveDate,
-    open: String,
-    high: String,
-    low: String,
-    close: String,
-    volume: String,
-}
+struct EodPriceModel {
+    #[serde(rename(deserialize = "mic_code"))]
+    symbol: str,
+    exchange: str
 
-#[derive(Deserialize, Debug)]
-struct StockPriceModel {
-    //    meta: StockPriceMetaModel,
-    values: Vec<StockPriceValueModel>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -80,6 +60,7 @@ where
     // add api key
     let api_key = "16ebf3860688468b9cdab89899669b30";
     let url_with_api_key = format!("{}&apikey={}", url, api_key);
+    println!("{}", url_with_api_key);
 
     // request data
     let response = reqwest::get(url_with_api_key).await.unwrap();
@@ -117,16 +98,33 @@ async fn main() {
     let pool = db::get_connection_pool().await.unwrap();
 
     // retrieve companies
-    let stocks = Stock::select(pool.to_owned()).await.unwrap();
+    let _stocks = Stock::select(pool.to_owned()).await.unwrap();
 
-    for stock in stocks {
-        let _ = retrieve_and_store_stock_price_since_inception(pool.to_owned(), &stock.symbol).await;
-    }
+    let _ = retrieve_and_store_stock_price_since_inception(pool.to_owned(), "AAPL").await;
 
-    // let start_date = NaiveDate::from_ymd(1983, 9, 23);
-    // let end_date = NaiveDate::from_ymd(1983, 9, 25);
-    // let symbol = "000001";
-    // let _ = retrieve_and_store_stock_price_since_inception(pool.to_owned(), symbol).await;
+    //let start_date = NaiveDate::from_ymd(1983, 9, 23);
+    //let end_date = NaiveDate::from_ymd(1983, 9, 24);
+    //let end_date = NaiveDate::from_ymd(1983, 9, 25);
+    //let symbol = "AAPL";
+    //retrieve_and_store_stock_price(pool, symbol, start_date, end_date).await.expect("youpi");
+    // let _ = retrieve_and_store_since_inception(pool.to_owned(), "7974").await;
+    //for stock in stocks {
+    //    let _ = retrieve_and_store_since_inception(pool.to_owned(), &stock.symbol).await;
+    //    break;
+    //}
+
+    // let stock_prices = StockPrice::select(pool)
+    //     .await
+    //     .unwrap();
+    // println!("{:?}", stock_prices);
+
+    //let input_stock_prices = read_input_stock_prices(pool.to_owned()).await;
+
+    // Update existing stock_prices
+    // StockPrice::insert_many(pool.to_owned(), new_stock_prices)
+    //     .await
+    //     .unwrap();
+    // StockPrice::update_many(pool, existing_stock_prices).await.unwrap();
 }
 
 // https://api.twelvedata.com/time_series?symbol=AAPL&interval=1day&start_date=1980-12-12&outputsize=5000&apikey=16ebf3860688468b9cdab89899669b30
@@ -144,8 +142,9 @@ async fn get_inception_date(symbol: &str) -> Result<NaiveDate, ApiError> {
         "{}?symbol={}&interval=1day",
         inception_date_endpoint, symbol
     );
-    let inception_date_model = json_from_api::<InceptionDateModel>(&inception_date_url).await?;
-
+    let inception_date_model = json_from_api::<InceptionDateModel>(&inception_date_url)
+        .await
+        .unwrap();
     Ok(inception_date_model.datetime)
 }
 
@@ -164,14 +163,21 @@ async fn retrieve_and_store_stock_price(
         "{}?symbol={}&interval=1day&start_date={}&end_date={}",
         stock_prices_endpoint, symbol, start_date, end_date
     );
-    let stock_prices = json_from_api::<StockPriceModel>(&stock_prices_url).await?;
+    let stock_prices = json_from_api::<StockPriceModel>(&stock_prices_url)
+        .await
+        .unwrap();
 
     println!("Converting into db model");
+    let stock_price_meta = stock_prices.meta;
+    let exchange = &stock_price_meta.exchange;
+    let currency = &stock_price_meta.currency;
     let stock_price_values = stock_prices.values;
     let mut db_stock_prices: Vec<StockPrice> = Vec::with_capacity(stock_price_values.len());
     for stock_price in stock_price_values {
         let db_stock_price = StockPrice {
             symbol: symbol.to_string(),
+            exchange: exchange.clone(),
+            currency: currency.clone(),
             eod: stock_price.eod,
             open: stock_price.open.parse::<f64>().unwrap(),
             high: stock_price.high.parse::<f64>().unwrap(),
@@ -183,7 +189,9 @@ async fn retrieve_and_store_stock_price(
     }
 
     println!("Storing in the db");
-    let _ = StockPrice::insert_many(pool, db_stock_prices).await;
+    StockPrice::insert_many(pool, db_stock_prices)
+        .await
+        .unwrap();
 
     Ok(())
 }
@@ -191,17 +199,19 @@ async fn retrieve_and_store_stock_price(
 async fn retrieve_and_store_stock_price_since_inception(
     pool: PgPool,
     symbol: &str,
-) -> Result<(), LoaderError> {
+) -> Result<(), ApiError> {
     println!("Retrieving and storing prices for {}", symbol);
 
     // get inception date
-    let mut start_date = get_inception_date(symbol).await?;
+    let mut start_date = get_inception_date(symbol).await.unwrap();
     let mut end_date = add_days(start_date, 10);
 
     // stock prices
     let today = Utc::now().date_naive();
     while end_date <= today {
-        retrieve_and_store_stock_price(pool.to_owned(), symbol, start_date, end_date).await?;
+        retrieve_and_store_stock_price(pool.to_owned(), symbol, start_date, end_date)
+            .await
+            .unwrap();
         start_date = end_date;
         end_date = add_days(start_date, 5000);
     }
@@ -212,3 +222,11 @@ async fn retrieve_and_store_stock_price_since_inception(
 
     Ok(())
 }
+
+// Retrieve inception date
+//let inception_date = retrieve_earliest_timestamp(symbol).await;
+
+//println!("Inception date for {}: {:?}", symbol, inception_date);
+
+//    Ok(())
+//}
