@@ -1,10 +1,8 @@
+use chrono::NaiveDate;
 use serde::Deserialize;
 use sqlx::postgres::PgPool;
 use sqlx::{Postgres, QueryBuilder};
 use std::fmt;
-use chrono::NaiveDate;
-
-
 
 #[derive(Clone, Debug, Deserialize)]
 pub struct StockPrice {
@@ -16,7 +14,7 @@ pub struct StockPrice {
     pub high: f64,
     pub low: f64,
     pub close: f64,
-    pub volume: i32,
+    pub volume: i64,
 }
 
 impl fmt::Display for StockPrice {
@@ -49,7 +47,10 @@ impl StockPrice {
         Ok(stock_prices)
     }
 
-    pub async fn insert_many(pool: PgPool, stock_prices: Vec<StockPrice>) -> Result<(), sqlx::Error> {
+    pub async fn insert_many(
+        pool: PgPool,
+        stock_prices: Vec<StockPrice>,
+    ) -> Result<(), sqlx::Error> {
         if stock_prices.len() == 0 {
             return Ok(());
         }
@@ -74,10 +75,9 @@ impl StockPrice {
             );
             query_builder.push_values(chunk, |mut b, stock_price| {
                 b.push_bind(&stock_price.symbol)
-                    .push_bind(&stock_price.symbol)
                     .push_bind(&stock_price.exchange)
                     .push_bind(&stock_price.currency)
-                    //.push_bind(&stock_price.eod)
+                    .push_bind(&stock_price.eod)
                     .push_bind(&stock_price.open)
                     .push_bind(&stock_price.high)
                     .push_bind(&stock_price.low)
