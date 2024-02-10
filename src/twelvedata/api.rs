@@ -1,6 +1,9 @@
 use serde::Deserialize;
 use thiserror::Error;
 
+const API_URL: &str = "https://api.twelvedata.com";
+const API_KEY: &str = "16ebf3860688468b9cdab89899669b30";
+
 #[derive(Error, Debug)]
 pub enum ApiError {
     #[error("url not found")]
@@ -16,25 +19,26 @@ pub enum ApiError {
     Reqwest { code: u16, text: String },
 }
 
+#[allow(dead_code)]
 #[derive(Deserialize, Debug)]
 struct ErrorModel {
     code: u16,
     message: String,
 }
 
-pub async fn json_from_api<T>(url: &str) -> Result<T, ApiError>
+pub async fn json_from_endpoint<T>(endpoint: &str) -> Result<T, ApiError>
 where
     T: for<'a> Deserialize<'a> + std::fmt::Debug,
 {
     // add api key
-    let api_key = "16ebf3860688468b9cdab89899669b30";
-    let url_with_api_key = format!("{}&apikey={}", url, api_key);
+    let url = format!("{}/{}&apikey={}", API_URL, endpoint, API_KEY);
 
     // request data
-    let response = reqwest::get(url_with_api_key).await.unwrap();
+    let response = reqwest::get(&url).await.unwrap();
     let code = response.status();
     let text = response.text().await.unwrap();
     println!("GET {} -> {}", url, code);
+
     if !code.is_success() {
         return Err(ApiError::Reqwest {
             code: code.into(),
