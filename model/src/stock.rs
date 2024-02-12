@@ -1,6 +1,7 @@
 use serde::Deserialize;
 use sqlx::postgres::PgPool;
 use sqlx::{Postgres, QueryBuilder};
+use std::collections::HashMap;
 use std::fmt;
 
 #[derive(sqlx::Type, Clone, Debug, Deserialize, PartialEq)]
@@ -178,5 +179,14 @@ impl Stock {
             Stock::update(pool.to_owned(), stock, updated_stock).await?;
         }
         Ok(())
+    }
+}
+
+impl Stock {
+    pub fn get_country_override_hashmap() -> HashMap<String, String> {
+        HashMap::from([
+            ("FREETR".to_string(), "DK".to_string()),
+            ("WUSH".to_string(), "RU".to_string()),
+        ])
     }
 }

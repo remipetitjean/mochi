@@ -1,4 +1,4 @@
-use model::country::Country;
+//use model::country::Country;
 use model::exchange::Exchange;
 use serde::Deserialize;
 use sqlx::postgres::PgPool;
@@ -42,7 +42,7 @@ async fn main() {
         .unwrap();
 }
 
-async fn read_input_exchanges(pool: PgPool) -> Vec<Exchange> {
+async fn read_input_exchanges(_pool: PgPool) -> Vec<Exchange> {
     // exchanges
     let url = "https://api.twelvedata.com/exchanges";
     let response = reqwest::get(url).await.unwrap();
@@ -58,17 +58,17 @@ async fn read_input_exchanges(pool: PgPool) -> Vec<Exchange> {
     let mut exchanges = api_exchange.data;
 
     // country map
-    let country_name_map = Country::to_name_hash_map(pool)
-        .await
-        .expect("Must get country map");
-
-    // update country to country code
-    for exchange in exchanges.iter_mut() {
-        let country = &exchange.country;
-        let country_code = &country_name_map[country];
-        exchange.country = country_code.code.clone();
-    }
-
+//    let country_name_map = Country::to_name_hash_map(pool)
+//        .await
+//        .expect("Must get country map");
+//
+//    // update country to country code
+//    for exchange in exchanges.iter_mut() {
+//        let country = &exchange.country;
+//        let country_code = &country_name_map[country];
+//        exchange.country = country_code.code.clone();
+//    }
+//
     exchanges
 }
 

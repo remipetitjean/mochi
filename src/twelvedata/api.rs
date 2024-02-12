@@ -4,6 +4,7 @@ use thiserror::Error;
 const API_URL: &str = "https://api.twelvedata.com";
 const API_KEY: &str = "16ebf3860688468b9cdab89899669b30";
 
+#[allow(dead_code)]
 #[derive(Error, Debug)]
 pub enum ApiError {
     #[error("url not found")]
@@ -28,7 +29,7 @@ struct ErrorModel {
 
 pub async fn json_from_endpoint<T>(endpoint: &str) -> Result<T, ApiError>
 where
-    T: for<'a> Deserialize<'a> + std::fmt::Debug,
+    T: for<'a> Deserialize<'a>
 {
     // add api key
     let url = format!("{}/{}&apikey={}", API_URL, endpoint, API_KEY);

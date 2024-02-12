@@ -1,33 +1,26 @@
-use model::country::Country;
+mod db;
+mod twelvedata;
+
 use model::stock::Stock;
-use serde::Deserialize;
 use sqlx::postgres::PgPool;
 use std::collections::HashMap;
-
-mod db;
-
-#[derive(Deserialize)]
-struct ApiStock {
-    data: Vec<Stock>,
-}
+use twelvedata::endpoint::stocks::get_stocks;
 
 #[tokio::main]
 async fn main() {
     let pool = db::get_connection_pool().await.unwrap();
 
-    let input_stocks = read_input_stocks(pool.to_owned()).await;
-
-    // retrieve existing stocks
-    let stock_mapping = get_stock_mapping(pool.to_owned()).await.unwrap();
+    let stocks = get_stocks(pool.to_owned()).await.unwrap();
+    let existing_stock_mapping = get_stock_mapping(pool.to_owned()).await.unwrap();
 
     // split into existing and new stocks
-    let size = input_stocks.len();
+    let size = stocks.len();
     let mut existing_stocks = Vec::<(Stock, Stock)>::with_capacity(size);
     let mut new_stocks = Vec::<Stock>::with_capacity(size);
-    for input_stock in input_stocks {
-        match stock_mapping.get(&input_stock.symbol) {
-            Some(existing_stock) => existing_stocks.push((existing_stock.clone(), input_stock)),
-            None => new_stocks.push(input_stock),
+    for stock in stocks {
+        match existing_stock_mapping.get(&stock.symbol) {
+            Some(existing_stock) => existing_stocks.push((existing_stock.clone(), stock)),
+            None => new_stocks.push(stock),
         };
     }
 
@@ -36,60 +29,6 @@ async fn main() {
         .await
         .unwrap();
     Stock::update_many(pool, existing_stocks).await.unwrap();
-}
-
-async fn read_input_stocks(pool: PgPool) -> Vec<Stock> {
-    // country overwite
-    let mut country_by_symbol_map: HashMap<String, String> = HashMap::new();
-    country_by_symbol_map.insert("FREETR".to_string(), "DK".to_string());
-    country_by_symbol_map.insert("WUSH".to_string(), "RU".to_string());
-
-    // stocks
-    let url = "https://api.twelvedata.com/stocks";
-    let response = reqwest::get(url).await.unwrap();
-
-    if response.status() != reqwest::StatusCode::OK {
-        panic!("KO");
-    }
-
-    let api_stock = response
-        .json::<ApiStock>()
-        .await
-        .expect("Cannot deserialize to Vec<Stock>");
-    let mut stocks = api_stock.data;
-
-    // country map
-    let country_by_name_map = Country::to_name_hash_map(pool.clone())
-        .await
-        .expect("Must get country map");
-
-    // update country to country code
-    for stock in stocks.iter_mut() {
-        let country_name = &stock.country;
-
-        let country_code: String = match country_name.as_str() {
-            "" => {
-                let symbol = &stock.symbol;
-                String::from(&country_by_symbol_map[symbol])
-            }
-            _ => String::from(&country_by_name_map[country_name].code),
-        };
-
-        stock.country = country_code;
-    }
-
-    let mut unique_stock_map: HashMap<String, Stock> = HashMap::new();
-    for stock in stocks {
-        let stock_symbol = &stock.symbol;
-        if !unique_stock_map.contains_key(stock_symbol) {
-            unique_stock_map.insert(stock_symbol.to_string(), stock);
-        }
-    }
-
-    let mut unique_stocks: Vec<Stock> = unique_stock_map.into_values().collect();
-    unique_stocks.sort_by(|a, b| a.symbol.partial_cmp(&b.symbol).unwrap());
-
-    unique_stocks
 }
 
 async fn get_stock_mapping(pool: PgPool) -> Result<HashMap<String, Stock>, sqlx::Error> {

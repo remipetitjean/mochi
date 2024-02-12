@@ -113,124 +113,128 @@ impl Country {
 }
 
 impl Country {
-    pub async fn to_name_hash_map(pool: PgPool) -> Result<HashMap<String, Country>, sqlx::Error> {
+    pub async fn get_hashmap_by_name(
+        pool: PgPool,
+    ) -> Result<HashMap<String, Country>, sqlx::Error> {
         let countries = Country::select(pool).await?;
 
-        let mut hash_map: HashMap<String, Country> = HashMap::new();
+        let mut hashmap: HashMap<String, Country> = HashMap::new();
         for country in countries {
-            hash_map.insert(country.name.clone(), country);
+            hashmap.insert(country.name.clone(), country);
         }
 
         // manual insertion: Bosnia and Herzegovina
-        let country = hash_map.get("Bosnia and Herzegovina");
+        let country = hashmap.get("Bosnia and Herzegovina");
         match country {
             Some(country) => {
-                hash_map.insert("Bosnia & Herzegovina".to_string(), country.clone());
+                hashmap.insert("Bosnia & Herzegovina".to_string(), country.clone());
             }
             None => {}
         }
 
         // manual insertion: Czechia
-        let country = hash_map.get("Czechia");
+        let country = hashmap.get("Czechia");
         match country {
             Some(country) => {
-                hash_map.insert("Czech Republic".to_string(), country.clone());
+                hashmap.insert("Czech Republic".to_string(), country.clone());
             }
             None => {}
         }
 
         // manual insertion: Palestine, State of
-        let country = hash_map.get("Palestine, State of");
+        let country = hashmap.get("Palestine, State of");
         match country {
             Some(country) => {
-                hash_map.insert("Palestinian Territories".to_string(), country.clone());
+                hashmap.insert("Palestinian Territories".to_string(), country.clone());
             }
             None => {}
         }
 
         // manual insertion: Russian Federation
-        let country = hash_map.get("Russian Federation");
+        let country = hashmap.get("Russian Federation");
         match country {
             Some(country) => {
-                hash_map.insert("Russia".to_string(), country.clone());
+                hashmap.insert("Russia".to_string(), country.clone());
             }
             None => {}
         }
 
         // manual insertion: Korea, Republic of
-        let country = hash_map.get("Korea, Republic of");
+        let country = hashmap.get("Korea, Republic of");
         match country {
             Some(country) => {
-                hash_map.insert("South Korea".to_string(), country.clone());
+                hashmap.insert("South Korea".to_string(), country.clone());
             }
             None => {}
         }
 
         // manual insertion: Taiwan, Republic of China
-        let country = hash_map.get("Taiwan, Republic of China");
+        let country = hashmap.get("Taiwan, Republic of China");
         match country {
             Some(country) => {
-                hash_map.insert("Taiwan".to_string(), country.clone());
+                hashmap.insert("Taiwan".to_string(), country.clone());
             }
             None => {}
         }
 
         // manual insertion: Tanzania, United Republic of
-        let country = hash_map.get("Tanzania, United Republic of");
+        let country = hashmap.get("Tanzania, United Republic of");
         match country {
             Some(country) => {
-                hash_map.insert("Tanzania".to_string(), country.clone());
+                hashmap.insert("Tanzania".to_string(), country.clone());
             }
             None => {}
         }
 
         // manual insertion: United Kingdom of Great Britain and Northern Ireland
-        let country = hash_map.get("United Kingdom of Great Britain and Northern Ireland");
+        let country = hashmap.get("United Kingdom of Great Britain and Northern Ireland");
         match country {
             Some(country) => {
-                hash_map.insert("United Kingdom".to_string(), country.clone());
+                hashmap.insert("United Kingdom".to_string(), country.clone());
             }
             None => {}
         }
 
         // manual insertion: United States of America
-        let country = hash_map.get("United States of America");
+        let country = hashmap.get("United States of America");
         match country {
             Some(country) => {
-                hash_map.insert("United States".to_string(), country.clone());
+                hashmap.insert("United States".to_string(), country.clone());
             }
             None => {}
         }
 
         // manual insertion: Venezuela (Bolivarian Republic of)
-        let country = hash_map.get("Venezuela (Bolivarian Republic of)");
+        let country = hashmap.get("Venezuela (Bolivarian Republic of)");
         match country {
             Some(country) => {
-                hash_map.insert("Venezuela".to_string(), country.clone());
+                hashmap.insert("Venezuela".to_string(), country.clone());
             }
             None => {}
         }
 
         // manual insertion: Viet Nam
-        let country = hash_map.get("Viet Nam");
+        let country = hashmap.get("Viet Nam");
         match country {
             Some(country) => {
-                hash_map.insert("Vietnam".to_string(), country.clone());
+                hashmap.insert("Vietnam".to_string(), country.clone());
             }
             None => {}
         }
 
-        Ok(hash_map)
+        Ok(hashmap)
     }
 
-    pub async fn to_code_hash_map(pool: PgPool) -> Result<HashMap<String, Country>, sqlx::Error> {
+    pub async fn get_hashmap_by_code(
+        pool: PgPool,
+    ) -> Result<HashMap<String, Country>, sqlx::Error> {
         let countries = Country::select(pool).await?;
 
-        let mut hash_map: HashMap<String, Country> = HashMap::new();
+        let mut hashmap: HashMap<String, Country> = HashMap::new();
         for country in countries {
-            hash_map.insert(country.code.clone(), country);
+            hashmap.insert(country.code.clone(), country);
         }
 
-        Ok(hash_map)
+        Ok(hashmap)
     }
 }
