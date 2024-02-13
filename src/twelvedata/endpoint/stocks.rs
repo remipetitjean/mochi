@@ -3,6 +3,7 @@ use model::country::Country;
 use model::stock::{Stock, StockType};
 use serde::Deserialize;
 use sqlx::postgres::PgPool;
+use std::collections::HashSet;
 
 const ENDPOINT: &str = "stocks";
 
@@ -45,8 +46,17 @@ pub async fn get_stocks(pool: PgPool) -> Result<Vec<Stock>, ApiError> {
     let values = get(true).await?.data;
 
     let mut stocks: Vec<Stock> = Vec::with_capacity(values.len());
+    let mut stock_symbol_set: HashSet<String> = HashSet::new();
+
     for value in values {
         let symbol = value.symbol;
+
+        if stock_symbol_set.contains(&symbol) {
+            continue;
+        }
+
+        stock_symbol_set.insert(symbol.clone());
+
         let country = match stock_country_override_hashmap.get(&symbol) {
             Some(value) => value,
             None => &country_hashmap_by_name[&value.country].code,

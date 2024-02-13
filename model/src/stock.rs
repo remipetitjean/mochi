@@ -189,4 +189,16 @@ impl Stock {
             ("WUSH".to_string(), "RU".to_string()),
         ])
     }
+
+    pub async fn get_hashmap_by_symbol(
+        pool: PgPool,
+    ) -> Result<HashMap<String, Stock>, sqlx::Error> {
+        let mut hashmap = HashMap::<String, Stock>::new();
+        let stocks = Stock::select(pool).await?;
+        for stock in stocks {
+            let symbol = &stock.symbol;
+            hashmap.insert(symbol.to_string(), stock);
+        }
+        Ok(hashmap)
+    }
 }

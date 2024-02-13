@@ -51,7 +51,7 @@ async fn retrieve_and_store_stock_price(
     start_date: NaiveDate,
     end_date: NaiveDate,
 ) -> Result<(), LoaderError> {
-    let stock_prices = time_series::get(symbol, start_date, end_date).await?;
+    let stock_prices = time_series::get_time_series(symbol, start_date, end_date).await?;
     let _ = StockPrice::insert_many(pool, stock_prices).await;
     Ok(())
 }
