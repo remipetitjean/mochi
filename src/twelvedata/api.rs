@@ -27,12 +27,15 @@ struct ErrorModel {
     message: String,
 }
 
-pub async fn json_from_endpoint<T>(endpoint: &str) -> Result<T, ApiError>
+pub async fn json_from_endpoint<T>(endpoint: &str, add_api_key: bool) -> Result<T, ApiError>
 where
-    T: for<'a> Deserialize<'a>
+    T: for<'a> Deserialize<'a>,
 {
     // add api key
-    let url = format!("{}/{}&apikey={}", API_URL, endpoint, API_KEY);
+    let url = match add_api_key {
+        true => format!("{}/{}&apikey={}", API_URL, endpoint, API_KEY),
+        false => format!("{}/{}", API_URL, endpoint),
+    };
 
     // request data
     let response = reqwest::get(&url).await.unwrap();

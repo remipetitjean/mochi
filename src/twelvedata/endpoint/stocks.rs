@@ -35,7 +35,7 @@ struct Model {
 async fn get(show_plan: bool) -> Result<Model, ApiError> {
     println!("Retrieving stocks");
     let endpoint_with_params = format!("{}?show_plan={}", ENDPOINT, show_plan);
-    json_from_endpoint::<Model>(&endpoint_with_params).await
+    json_from_endpoint::<Model>(&endpoint_with_params, true).await
 }
 
 pub async fn get_stocks(pool: PgPool) -> Result<Vec<Stock>, ApiError> {

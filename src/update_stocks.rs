@@ -1,10 +1,10 @@
 mod db;
 mod twelvedata;
 
+use self::twelvedata::endpoint::stocks::get_stocks;
 use model::stock::Stock;
 use sqlx::postgres::PgPool;
 use std::collections::HashMap;
-use twelvedata::endpoint::stocks::get_stocks;
 
 #[tokio::main]
 async fn main() {

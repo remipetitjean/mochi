@@ -34,7 +34,7 @@ struct TimeSeriesModel {
     values: Vec<ValueModel>,
 }
 
-pub async fn get(
+pub async fn get_time_series(
     symbol: &str,
     start_date: NaiveDate,
     end_date: NaiveDate,
@@ -47,7 +47,7 @@ pub async fn get(
         "{}?symbol={}&interval=1day&start_date={}&end_date={}",
         ENDPOINT, symbol, start_date, end_date,
     );
-    let model = json_from_endpoint::<TimeSeriesModel>(&endpoint_with_params).await?;
+    let model = json_from_endpoint::<TimeSeriesModel>(&endpoint_with_params, true).await?;
 
     let values = model.values;
     let mut stock_prices: Vec<StockPrice> = Vec::with_capacity(values.len());

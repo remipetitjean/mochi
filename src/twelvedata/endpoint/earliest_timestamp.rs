@@ -12,9 +12,7 @@ pub struct InceptionDateModel {
 pub async fn get(symbol: &str) -> Result<InceptionDateModel, ApiError> {
     println!("Retrieving inception date for {}", symbol);
     let endpoint_with_params = format!("{}?symbol={}&interval=1day", ENDPOINT, symbol);
-    let model = json_from_endpoint::<InceptionDateModel>(&endpoint_with_params).await?;
-
-    Ok(model)
+    json_from_endpoint::<InceptionDateModel>(&endpoint_with_params, true).await
 }
 
 pub async fn get_inception_date(symbol: &str) -> Result<NaiveDate, ApiError> {
