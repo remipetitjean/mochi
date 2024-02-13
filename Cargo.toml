@@ -31,6 +31,10 @@ name = "update_stocks"
 path = "src/update_stocks.rs"
 
 [[bin]]
+name = "update_stock_td_plans"
+path = "src/update_stock_td_plans.rs"
+
+[[bin]]
 name = "update_stock_prices"
 path = "src/update_stock_prices.rs"
 

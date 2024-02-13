@@ -1,6 +1,7 @@
 use super::super::api::{json_from_endpoint, ApiError};
 use model::country::Country;
 use model::stock::{Stock, StockType};
+use model::stock_td_plan::StockTdPlan;
 use serde::Deserialize;
 use sqlx::postgres::PgPool;
 use std::collections::HashSet;
@@ -43,7 +44,7 @@ pub async fn get_stocks(pool: PgPool) -> Result<Vec<Stock>, ApiError> {
     let country_hashmap_by_name = Country::get_hashmap_by_name(pool).await.unwrap();
     let stock_country_override_hashmap = Stock::get_country_override_hashmap();
 
-    let values = get(true).await?.data;
+    let values = get(false).await?.data;
 
     let mut stocks: Vec<Stock> = Vec::with_capacity(values.len());
     let mut stock_symbol_set: HashSet<String> = HashSet::new();
@@ -71,4 +72,30 @@ pub async fn get_stocks(pool: PgPool) -> Result<Vec<Stock>, ApiError> {
         stocks.push(stock);
     }
     Ok(stocks)
+}
+
+pub async fn get_stock_td_plans(pool: PgPool) -> Result<Vec<StockTdPlan>, ApiError> {
+    let values = get(true).await?.data;
+
+    let mut stock_td_plans: Vec<StockTdPlan> = Vec::with_capacity(values.len());
+    let mut stock_symbol_set: HashSet<String> = HashSet::new();
+
+    for value in values {
+        let symbol = value.symbol;
+        let access = value.access.unwrap();
+
+        if stock_symbol_set.contains(&symbol) {
+            continue;
+        }
+
+        stock_symbol_set.insert(symbol.clone());
+
+        let stock_td_plan = StockTdPlan {
+            symbol,
+            global: access.global,
+            plan: access.plan,
+        };
+        stock_td_plans.push(stock_td_plan);
+    }
+    Ok(stock_td_plans)
 }
