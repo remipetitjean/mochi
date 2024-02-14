@@ -1,7 +1,7 @@
 use super::super::api::{json_from_endpoint, ApiError};
 use model::country::Country;
 use model::stock::{Stock, StockType};
-use model::stock_td_plan::StockTdPlan;
+use model::stock_td_plan::{StockTdPlan, PlanType, GlobalType};
 use serde::Deserialize;
 use sqlx::postgres::PgPool;
 use std::collections::HashSet;
@@ -11,8 +11,8 @@ const ENDPOINT: &str = "stocks";
 #[allow(dead_code)]
 #[derive(Deserialize)]
 struct AccessModel {
-    global: String,
-    plan: String,
+    global: GlobalType,
+    plan: PlanType,
 }
 
 #[allow(dead_code)]

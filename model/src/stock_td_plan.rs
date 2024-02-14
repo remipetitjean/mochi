@@ -4,11 +4,37 @@ use sqlx::{Postgres, QueryBuilder};
 use std::collections::HashMap;
 use std::fmt;
 
+#[derive(sqlx::Type, Clone, Debug, Deserialize, PartialEq)]
+#[sqlx(type_name = "globaltype")]
+pub enum GlobalType {
+    #[serde(rename = "Basic")]
+    #[sqlx(rename = "Basic")]
+    Basic,
+    #[serde(rename = "Level A")]
+    #[sqlx(rename = "Level A")]
+    LevelA,
+    #[serde(rename = "Level B")]
+    #[sqlx(rename = "Level B")]
+    LevelB,
+    #[serde(rename = "Level C")]
+    #[sqlx(rename = "Level C")]
+    LevelC,
+}
+
+#[derive(sqlx::Type, Clone, Debug, Deserialize, PartialEq)]
+#[sqlx(type_name = "plantype")]
+pub enum PlanType {
+    Basic,
+    Grow,
+    Pro,
+    Enterprise,
+}
+
 #[derive(Clone, Debug, Deserialize)]
 pub struct StockTdPlan {
     pub symbol: String,
-    pub global: String,
-    pub plan: String,
+    pub global: GlobalType,
+    pub plan: PlanType,
 }
 
 impl fmt::Display for StockTdPlan {
@@ -24,8 +50,8 @@ impl StockTdPlan {
             r#"
             SELECT
                 symbol,
-                global,
-                plan
+                global as "global: GlobalType",
+                plan as "plan: PlanType"
             FROM stock_td_plan
             "#
         )

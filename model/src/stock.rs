@@ -91,6 +91,27 @@ impl Stock {
         Ok(stocks)
     }
 
+    pub async fn select_with_plans(pool: PgPool) -> Result<Vec<Stock>, sqlx::Error> {
+        let stocks = sqlx::query_as!(
+            Stock,
+            r#"
+            SELECT
+                s.symbol,
+                s.name,
+                s.country,
+                s.stock_type as "stock_type: StockType"
+            FROM stock s
+            INNER JOIN stock_td_plan sp
+                ON sp.symbol = s.symbol
+                AND sp.plan IN ('Basic', 'Grow')
+            "#
+        )
+        .fetch_all(&pool)
+        .await?;
+
+        Ok(stocks)
+    }
+
     pub async fn insert_many(pool: PgPool, stocks: Vec<Stock>) -> Result<(), sqlx::Error> {
         if stocks.len() == 0 {
             return Ok(());

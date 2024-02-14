@@ -9,6 +9,7 @@ use sqlx::postgres::PgPool;
 use thiserror::Error;
 use twelvedata::api::ApiError;
 use twelvedata::endpoint::{earliest_timestamp, time_series};
+use tokio::time::{sleep, Duration};
 
 #[derive(Error, Debug)]
 pub enum DatabaseError {
@@ -30,13 +31,19 @@ async fn main() {
     let pool = db::get_connection_pool().await.unwrap();
 
     // retrieve companies
-    let stocks = Stock::select(pool.to_owned()).await.unwrap();
+    let stocks = Stock::select_with_plans(pool.to_owned()).await.unwrap();
 
     // storing prices
-    for stock in stocks {
-        let _ =
-            retrieve_and_store_stock_price_since_inception(pool.to_owned(), &stock.symbol).await;
+    for chunk in stocks.chunks(17) {
+        for stock in chunk {
+            let _ = retrieve_and_store_stock_price_since_inception(pool.to_owned(), &stock.symbol).await;
+        }
+        sleep(Duration::from_millis(60000)).await;
     }
+    //for stock in stocks {
+    //    let _ =
+    //        retrieve_and_store_stock_price_since_inception(pool.to_owned(), &stock.symbol).await;
+    //}
 }
 
 fn add_days(date: NaiveDate, num_days: u64) -> NaiveDate {
@@ -75,8 +82,7 @@ async fn retrieve_and_store_stock_price_since_inception(
     }
 
     retrieve_and_store_stock_price(pool.to_owned(), symbol, start_date, today)
-        .await
-        .unwrap();
+        .await?;
 
     Ok(())
 }
