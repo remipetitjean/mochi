@@ -2,6 +2,7 @@ use chrono::NaiveDate;
 use serde::Deserialize;
 use sqlx::postgres::PgPool;
 use sqlx::{Postgres, QueryBuilder};
+use std::collections::HashMap;
 use std::fmt;
 
 #[derive(Clone, Debug, Deserialize)]
@@ -13,6 +14,12 @@ pub struct StockPrice {
     pub low: f64,
     pub close: f64,
     pub volume: i64,
+}
+
+#[derive(Clone, Debug, Deserialize)]
+pub struct StockEod {
+    pub symbol: String,
+    pub eod: Option<NaiveDate>,
 }
 
 impl fmt::Display for StockPrice {
@@ -81,5 +88,31 @@ impl StockPrice {
         }
 
         Ok(())
+    }
+
+    pub async fn get_eod_hashmap(
+        pool: PgPool,
+    ) -> Result<HashMap<String, NaiveDate>, sqlx::error::Error> {
+        let stock_prices: Vec<StockEod> = sqlx::query_as!(
+            StockEod,
+            r#"
+            SELECT
+                symbol,
+                max(eod) as eod
+            FROM stock_price
+            GROUP BY symbol
+            "#
+        )
+        .fetch_all(&pool)
+        .await?;
+
+        let mut hashmap: HashMap<String, NaiveDate> = HashMap::new();
+        for stock_price in stock_prices {
+            hashmap.insert(
+                stock_price.symbol,
+                stock_price.eod.expect("should not be none"),
+            );
+        }
+        Ok(hashmap)
     }
 }

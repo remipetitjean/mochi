@@ -1,7 +1,7 @@
 use super::super::api::{json_from_endpoint, ApiError};
 use model::country::Country;
 use model::stock::{Stock, StockType};
-use model::stock_td_plan::{StockTdPlan, PlanType, GlobalType};
+use model::stock_td_plan::{GlobalType, PlanType, StockTdPlan};
 use serde::Deserialize;
 use sqlx::postgres::PgPool;
 use std::collections::HashSet;
